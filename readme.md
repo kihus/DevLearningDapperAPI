@@ -91,18 +91,19 @@ Consultas SQL devem ser feitas com Query, QueryFirstOrDefault e Execute.
 
 
 ### 2. Conexão com SQL Server
-Padrão recomendado:
+Padrão _recomendado_:
 ```
 using var connection = new SqlConnection(configuration.GetConnectionString("Default"));
 ```
 ### 3. Tratamento de erros e retornos HTTP
 - 200/201 para sucesso
+- 204 para updates/deletes
 - 400 para erros de entrada
 - 404 quando não encontrado
 - 500 para exceções inesperadas
 
 ### 4. Relacionamentos
-O banco não possui DELETE CASCADE, então exclusões devem ser tratadas cuidadosamente.
+O banco não possui DELETE ou UPDATE CASCADE, então exclusões devem ser tratadas cuidadosamente.
 
 ## 📂 Estrutura ***SUGERIDA*** do Projeto
 DevLearning.Api/ \
@@ -162,7 +163,7 @@ DevLearning.Api/ \
 ## 🧪 Testes e Validação
 Sugestão de ferramentas para testar os endpoints:
 
-- Postman
+- **Postman**
 
 🚨 **É importante adicionar no projeto a coleção de testes geradas no Postman para entrega do trabalho!**
 
