@@ -1,6 +1,6 @@
 # 📘 DevLearning API
 
-Este repositório contém o enunciado e as orientações para desenvolvimento de uma WebAPI em C# (.NET 9+) utilizando Dapper, com base no banco de dados DevLearning fornecido no script SQL.n.
+Este repositório contém o enunciado e as orientações para desenvolvimento de uma WebAPI em C# (.NET 9+) utilizando Dapper, com base no banco de dados DevLearning fornecido no script SQL.
 
 ## 📚 DevLearning – WebAPI com Dapper
 
