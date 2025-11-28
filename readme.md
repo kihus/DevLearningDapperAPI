@@ -10,7 +10,7 @@ API para gerenciamento de cursos, categorias, autores e alunos, com operações 
 
 O objetivo é criar uma API REST completa, utilizando:
 
-- ASP.NET Core (.NET 8+)
+- ASP.NET Core (.NET 9+)
 - Dapper
 - SQL Server
 - Arquitetura simples porém organizada
@@ -31,7 +31,7 @@ O banco DevLearning contém estas tabelas:
 O script completo está disponível no enunciado entregue anteriormente.
 
 ## 🔧 Tecnologias Obrigatórias
-- .NET 8 ou superior
+- .NET 9 ou superior
 - ASP.NET Core WebAPI
 - Dapper
 - SQL Server
@@ -87,7 +87,7 @@ Body deve conter:
 ## 🧱 Regras de Implementação
 ### 1. Uso obrigatório do Dapper
 
-Consultas SQL devem ser feitas com Query, QueryFirstOrDefault e Execute.
+Consultas SQL devem ser feitas com QueryAsync, QueryFirstOrDefaultAsync e ExecuteAsync.
 
 
 ### 2. Conexão com SQL Server
