@@ -1,0 +1,11 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/DevLearningDapperAPI.slnx/v18
+/DevLearningAPI/.vs/DevLearningAPI.slnx
+/DevLearningAPI/DevLearningAPI/bin/Debug/net9.0
+/DevLearningAPI/DevLearningAPI/obj/Debug/net9.0/ref
+/DevLearningAPI/DevLearningAPI/obj/Debug/net9.0/refint
+/DevLearningAPI/DevLearningAPI/obj/Debug/net9.0
+/DevLearningAPI/DevLearningAPI/obj
