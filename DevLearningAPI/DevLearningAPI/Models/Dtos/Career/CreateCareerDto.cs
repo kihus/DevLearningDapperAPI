@@ -9,9 +9,9 @@
 
         public string Url { get; init; } = string.Empty;
 
-        public int DurationInMinutes { get; init; } = 0;
+        public int DurationInMinutes { get; init; }
 
-        public bool Featured { get; init; } = false;
+        public bool Featured { get; init; }
 
         public string Tags { get; init; } = string.Empty;
     }
