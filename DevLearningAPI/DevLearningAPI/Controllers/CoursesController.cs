@@ -1,5 +1,6 @@
 ﻿using DevLearningAPI.Models.Dtos.Course;
 using DevLearningAPI.Services;
+using DevLearningAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,9 +10,9 @@ namespace DevLearningAPI.Controllers
 	[ApiController]
 	public class CoursesController : ControllerBase
 	{
-		private readonly CourseService _service;
+		private readonly ICourseService _service;
 
-		public CoursesController(CourseService service)
+		public CoursesController(ICourseService service)
 		{
 			_service = service;
 		}
