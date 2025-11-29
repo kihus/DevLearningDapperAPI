@@ -132,3 +132,10 @@ $RECYCLE.BIN/
 
 _NCrunch*
 /DevLearningAPI/.vs/DevLearningAPI.slnx
+/DevLearningAPI/DevLearningAPI/bin/Debug/net9.0
+/DevLearningAPI/DevLearningAPI/obj/Debug/net9.0/ref
+/DevLearningAPI/DevLearningAPI/obj/Debug/net9.0/refint
+/DevLearningAPI/DevLearningAPI/obj/Debug/net9.0
+/DevLearningAPI/DevLearningAPI/obj
+/.vs/DevLearningAPI.slnx/v18
+/.vs/slnx.sqlite
