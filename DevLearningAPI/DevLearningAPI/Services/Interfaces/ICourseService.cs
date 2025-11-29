@@ -1,4 +1,5 @@
-﻿namespace DevLearningAPI.Services.Interfaces;
+﻿
+namespace DevLearningAPI.Services.Interfaces;
 
 public interface ICourseService
 {
