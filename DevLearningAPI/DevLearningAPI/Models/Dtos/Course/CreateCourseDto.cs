@@ -9,10 +9,11 @@ public class CreateCourseDto
 	public string Title { get; init; } = string.Empty;
 	public string Summary { get; init; } = string.Empty;
 	public string Url { get; init; } = string.Empty;
+	public int Level { get; init; }
 	public int DurationInMinutes { get; init; } 
 	public bool Free { get; init; }
 	public bool Featured { get; init; } 
-	public int AuthorId { get; init; } 
-	public int CategoryId { get; init; } 
+	public Guid AuthorId { get; init; } = Guid.Empty;
+	public Guid CategoryId { get; init; } = Guid.Empty;
 	public string Tags { get; init; } = string.Empty;
 }

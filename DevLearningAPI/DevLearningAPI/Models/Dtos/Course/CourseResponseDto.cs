@@ -11,6 +11,7 @@ public class CourseResponseDto
 	public string Summary { get; init; } = string.Empty;
 	public string Url { get; init; } = string.Empty;
 	public int DurationInMinutes { get; init; }
+	public int Level { get; init; }
 	public DateTime CreateDate { get; init; } 
 	public DateTime LastUpdateDate { get; init; }
 	public bool Active { get; init; } 

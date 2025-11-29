@@ -50,6 +50,16 @@ public class CourseRepository : ICourseRepository
 		}
 	}
 
+	public async Task<AuthorCategoryDto> GetAuthorCategoryId(Guid id)
+	{
+		var sql = @"SELECT AuthorId, CategoryId FROM Course WHERE Id = @Id";
+
+		using (var con = _connection.GetConnection())
+		{
+			return await con.QueryFirstOrDefaultAsync<AuthorCategoryDto>(sql, new { id });
+		}
+	}
+
 	public async Task CreateCourseAsync(Course course)
 	{
 		var sql = @"INSERT INTO Course ([Id], 
