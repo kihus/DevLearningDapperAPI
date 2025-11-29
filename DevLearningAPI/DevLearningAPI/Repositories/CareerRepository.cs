@@ -21,39 +21,14 @@ namespace DevLearningAPI.Repositories
 
         #endregion
 
-        #region SqlQueries
-        private static readonly string InsertCareer = @"INSERT INTO Career(Id,Title,Summary,Url,DurationInMinutes,Active,Featured,Tags)
-                                                                   VALUES (@CareerGuid,@CareerTitle,@CareerSumary,@CareerUrl,@CareerDurationInMinutes,@CareerActive,@CareerFeatured,@CareerTags);";
-
-        private static readonly string SelectAllCareers = @"SELECT Id,Title,Summary,Url,DurationInMinutes,Active,Featured,Tags 
-                                                            FROM Career;";
-
-        private static readonly string SelectCareerById = @"SELECT Id,Title,Summary,Url,DurationInMinutes,Active,Featured,Tags 
-                                                            FROM Career
-                                                            WHERE Id = @CareerId;";
-
-        private static readonly string UpdateCareer = @"UPDATE Career
-                                                        SET Title = @CareerTitle,
-                                                            Summary = @CareerSumary,
-                                                            Url = @CareerUrl,
-                                                            DurationInMinutes = @CareerDurationInMinutes,
-                                                            Active = @CareerActive,
-                                                            Featured = @CareerFeatured,
-                                                            Tags = @CareerTags
-                                                        WHERE Id = @CareerId;";
-
-        private static readonly string UpdateActive = @"UPDATE Career
-                                                        Set Active = CASE Active WHEN 0 THEN 1
-                                                                                 WHEN 1 THEN 0
-                                                                                 END
-                                                        WHERE Id = @CareerId;";
-        #endregion
-
         public async Task CreateCareerAsync(Career career)
         {
             using (var con = _connection.GetConnection())
             {
-                await con.ExecuteAsync(InsertCareer, new
+                var sql = @"INSERT INTO Career(Id,Title,Summary,Url,DurationInMinutes,Active,Featured,Tags)
+                                       VALUES (@CareerGuid,@CareerTitle,@CareerSumary,@CareerUrl,@CareerDurationInMinutes,@CareerActive,@CareerFeatured,@CareerTags);";
+
+                await con.ExecuteAsync(sql, new
                 {
                     CareerGuid = career.Id,
                     CareerTitle = career.Title,
@@ -73,7 +48,10 @@ namespace DevLearningAPI.Repositories
         {
             using (var con = _connection.GetConnection())
             {
-                return (await con.QueryAsync<CareerResponseDto>(SelectAllCareers)).ToList();
+                var sql = @"SELECT Id,Title,Summary,Url,DurationInMinutes,Active,Featured,Tags 
+                                         FROM Career;";
+
+                return (await con.QueryAsync<CareerResponseDto>(sql)).ToList();
             }
 
         }
@@ -81,7 +59,11 @@ namespace DevLearningAPI.Repositories
         {
             using (var con = _connection.GetConnection())
             {
-                return await con.QueryFirstOrDefaultAsync<CareerResponseDto>(SelectCareerById, new { CareerId = careerId });
+                var sql = @"SELECT Id,Title,Summary,Url,DurationInMinutes,Active,Featured,Tags 
+                                         FROM Career
+                                         WHERE Id = @CareerId;";
+
+                return await con.QueryFirstOrDefaultAsync<CareerResponseDto>(sql, new { CareerId = careerId });
             }
 
         }
@@ -90,7 +72,17 @@ namespace DevLearningAPI.Repositories
         {
             using (var con = _connection.GetConnection())
             {
-                await con.ExecuteAsync(UpdateCareer, new
+                var sql = @"UPDATE Career
+                                     SET Title = @CareerTitle,
+                                         Summary = @CareerSumary,
+                                         Url = @CareerUrl,
+                                         DurationInMinutes = @CareerDurationInMinutes,
+                                         Active = @CareerActive,
+                                         Featured = @CareerFeatured,
+                                         Tags = @CareerTags
+                                     WHERE Id = @CareerId;";
+
+                await con.ExecuteAsync(sql, new
                 {
                     CareerId = careerId,
                     CareerTitle = career.Title,
@@ -108,7 +100,13 @@ namespace DevLearningAPI.Repositories
         {
             using (var con = _connection.GetConnection())
             {
-                await con.ExecuteAsync(UpdateActive, new { CareerId = careerId });
+                var sql = @"UPDATE Career
+                            SET Active = CASE Active WHEN 0 THEN 1
+                                                     WHEN 1 THEN 0
+                                                     END
+                            WHERE Id = @CareerId;";
+
+                await con.ExecuteAsync(sql, new { CareerId = careerId });
             }
 
         }
