@@ -10,4 +10,5 @@ public class Author(string name, string title, string image, string bio, string 
     public string Url { get; private set; } = url;
     public string Email { get; private set; } = email;
     public byte Type { get; private set; } = type;
+
 }
