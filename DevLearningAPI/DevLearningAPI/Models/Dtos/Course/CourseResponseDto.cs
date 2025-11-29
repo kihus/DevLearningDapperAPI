@@ -5,6 +5,7 @@ namespace DevLearningAPI.Models.Dtos.Course;
 
 public class CourseResponseDto
 {
+	public Guid Id { get; init; } = Guid.Empty;
 	public string Tag { get; init; } = string.Empty;
 	public string Title { get; init; } = string.Empty;
 	public string Summary { get; init; } = string.Empty;
