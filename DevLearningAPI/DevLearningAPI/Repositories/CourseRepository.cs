@@ -24,7 +24,8 @@ public class CourseRepository : ICourseRepository
 					JOIN Author a
 					ON co.AuthorId = a.Id
 					JOIN Category ca
-					ON co.CategoryId = ca.Id";
+					ON co.CategoryId = ca.Id
+					WHERE co.Active = 1";
 
 		using (var con = _connection.GetConnection())
 		{
@@ -42,7 +43,7 @@ public class CourseRepository : ICourseRepository
 					ON co.AuthorId = a.Id
 					JOIN Category ca
 					ON co.CategoryId = ca.Id
-					WHERE co.Id = @Id";
+					WHERE co.Id = @Id AND co.Active = 1";
 
 		using (var con = _connection.GetConnection())
 		{
