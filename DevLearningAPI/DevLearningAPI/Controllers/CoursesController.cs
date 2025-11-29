@@ -58,7 +58,7 @@ namespace DevLearningAPI.Controllers
 			try
 			{
 				await _service.CreateCourseAsync(course);
-				return Ok();
+				return Created();
 			}
 			catch (Exception ex)
 			{
@@ -71,6 +71,9 @@ namespace DevLearningAPI.Controllers
 		{
 			try
 			{
+				if (await _service.GetCourseByIdAsync(id) is null)
+					return NotFound("Register not found!");
+
 				await _service.UpdateCourseAsync(id, course);
 				return Ok();
 			}
@@ -85,6 +88,9 @@ namespace DevLearningAPI.Controllers
 		{
 			try
 			{
+				if (await _service.GetCourseByIdAsync(id) is null)
+					return NotFound("Register not found!");
+
 				await _service.DeleteCourseAsync(id);
 				return NoContent();
 			}

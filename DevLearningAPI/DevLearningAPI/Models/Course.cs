@@ -22,8 +22,8 @@ public class Course(
 	public string Url { get; private set; } = url;
 	public int Level { get; private set; } = level;
 	public int DurationInMinutes { get; private set; } = durationInMinutes;
-	public DateTime CreateDate { get; private set; } = DateTime.Now;
-	public DateTime LastUpdateDate { get; private set; } = DateTime.Now;
+	public DateTime CreateDate { get; private set; }
+	public DateTime LastUpdateDate { get; private set; }
 	public bool Active { get; private set; } = active;
 	public bool Free { get; private set; } = free;
 	public bool Featured { get; private set; } = featured;

@@ -17,12 +17,12 @@ public class CourseRepository : ICourseRepository
 
 	public async Task<List<CourseResponseDto>> GetAllCoursesAsync()
 	{
-		var sql = @"SELECT co.Id, co.Tag, co.Title, co.Summary, co.Url, co.DurationInMinutes, 
-                           co.CreateDate, co.LastUpdateDate, co.Active, co.Free, co.Featured,   
+		var sql = @"SELECT co.Id, co.Tag, co.Title, co.Summary, co.Url, co.DurationInMinutes, co.Level, 
+                           co.CreateDate, co.LastUpdateDate, co.Active, co.Free, co.Featured, co.Tags,      
 						   a.[Name] AS AuthorName, ca.[Title] AS CategoryName 
 					FROM Course co
 					JOIN Author a
-					ON c.AuthorId = a.Id
+					ON co.AuthorId = a.Id
 					JOIN Category ca
 					ON co.CategoryId = ca.Id";
 
@@ -34,12 +34,12 @@ public class CourseRepository : ICourseRepository
 
 	public async Task<CourseResponseDto?> GetCourseByIdAsync(Guid id)
 	{
-		var sql = @"SELECT co.Id, co.Tag, co.Title, co.Summary, co.Url, co.DurationInMinutes, 
-                           co.CreateDate, co.LastUpdateDate, co.Active, co.Free, co.Featured,   
+		var sql = @"SELECT co.Id, co.Tag, co.Title, co.Summary, co.Url, co.DurationInMinutes, co.Level,  
+                           co.CreateDate, co.LastUpdateDate, co.Active, co.Free, co.Featured, co.Tags,    
 						   a.[Name] AS AuthorName, ca.[Title] AS CategoryName 
 					FROM Course co
 					JOIN Author a
-					ON c.AuthorId = a.Id
+					ON co.AuthorId = a.Id
 					JOIN Category ca
 					ON co.CategoryId = ca.Id
 					WHERE co.Id = @Id";
@@ -72,7 +72,8 @@ public class CourseRepository : ICourseRepository
 										[CreateDate], 
 										[LastUpdateDate], 
 										[Active], 
-										[Free], 
+										[Free],
+										[Featured],
 										[AuthorId], 
 										[CategoryId], 
 										[Tags])
@@ -82,11 +83,12 @@ public class CourseRepository : ICourseRepository
 							@Summary,
 							@Url,
 							@Level,
-							@DurationInMinutes
+							@DurationInMinutes,
 							GETDATE(),
 							GETDATE(),
 							@Active,
 							@Free,
+							@Featured,
 							@AuthorId,
 							@CategoryId,
 							@Tags)";
@@ -104,6 +106,7 @@ public class CourseRepository : ICourseRepository
 				course.DurationInMinutes,
 				course.Active,
 				course.Free,
+				course.Featured,
 				course.AuthorId,
 				course.CategoryId,
 				course.Tags
@@ -119,8 +122,7 @@ public class CourseRepository : ICourseRepository
 								      [Url] = @Url, 
 								      [Level] = @Level, 
 									  [DurationInMinutes] = @DurationInMinutes, 
-									  [CreateDate] = @CreateDate, 
-									  [LastUpdateDate] = @LastUpdateDate, 
+									  [LastUpdateDate] = GETDATE(), 
 									  [Active] = @Active, 
 									  [Free] = @Free, 
 									  [AuthorId] = @AuthorId, 

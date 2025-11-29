@@ -68,15 +68,9 @@ public class CourseService : ICourseService
 			courseDto.DurationInMinutes is 0
 					  ? courseResponse.DurationInMinutes
 					  : courseDto.DurationInMinutes,
-			courseDto.Active is false
-					  ? courseResponse.Active
-					  : courseDto.Active,
-			courseDto.Free is false
-					  ? courseResponse.Free
-					  : courseDto.Free,
-			courseDto.Featured is false
-			          ? courseResponse.Featured
-					  : courseDto.Featured,
+			courseDto.Active,
+			courseDto.Free,
+			courseDto.Featured,
 			courseDto.AuthorId == Guid.Empty 
 					  ? authorCategory.AuthorId
 					  : courseDto.AuthorId,
