@@ -131,14 +131,3 @@ $RECYCLE.BIN/
 .DS_Store
 
 _NCrunch*
-/DevLearningAPI/.vs/DevLearningAPI.slnx
-<<<<<<< HEAD
-=======
-/DevLearningAPI/DevLearningAPI/bin/Debug/net9.0
-/DevLearningAPI/DevLearningAPI/obj/Debug/net9.0/ref
-/DevLearningAPI/DevLearningAPI/obj/Debug/net9.0/refint
-/DevLearningAPI/DevLearningAPI/obj/Debug/net9.0
-/DevLearningAPI/DevLearningAPI/obj
-/DevLearningAPI/DevLearningAPI/appsettings.json
->>>>>>> feat-student
-/.vs/DevLearningAPI.slnx/v18
