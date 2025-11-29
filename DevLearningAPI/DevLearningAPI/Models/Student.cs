@@ -1,10 +1,12 @@
 ﻿namespace DevLearningAPI.Models;
 
-public class Student(string name,
-            string email,
-            string document,
-            string phone,
-            DateTime? birthDate)
+public class Student(
+    string name,
+    string email,
+    string document,
+    string phone,
+    DateTime? birthDate
+    )
 {
     public Guid Id { get; set; } = Guid.NewGuid();
     public string Name { get; set; } = name;

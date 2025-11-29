@@ -2,7 +2,14 @@
 
 namespace DevLearningAPI.Models;
 
-public class Career(string title, string summary, string url, int durationInMinutes, bool featured, string tags)
+public class Career(
+    string title, 
+    string summary, 
+    string url, 
+    int durationInMinutes, 
+    bool featured, 
+    string tags
+    )
 {
     public Guid Id { get; private set; } = Guid.NewGuid();
 
