@@ -15,6 +15,4 @@ public class Student(
     public string? Phone { get; set; } = phone;
     public DateTime? BirthDate { get; set; } = birthDate;
     public DateTime CreateDate { get; set; } = DateTime.Now;
-
-
 }
