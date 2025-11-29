@@ -2,7 +2,7 @@
 
 
 public class Category(
-    string title, 
+    string title,
     string url, 
     string summary, 
     int order, 
