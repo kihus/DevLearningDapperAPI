@@ -4,7 +4,7 @@ namespace DevLearningAPI.Services.Interfaces;
 
 public interface ICategoryService
 {
-    Task<List<CategoryResponseDto>> GetAllCategoryAsync();
+    Task<List<CategoryResponseDto>> GetAllCategoriesAsync();
     Task<CategoryResponseDto> GetCategoryByIdAsync(Guid id);
     Task CreateCategoryAsync(CreateCategoryDto category);
     Task UpdateCategoryAsync(Guid id, UpdateCategoryDto categoryRequest);

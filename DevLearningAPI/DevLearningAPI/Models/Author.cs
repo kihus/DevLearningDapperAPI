@@ -6,8 +6,7 @@ public class Author(
     string image, 
     string bio, 
     string url, 
-    string email, 
-    byte type
+    string email
     )
 {
     public Guid Id { get; private set; } = Guid.NewGuid();
@@ -17,5 +16,5 @@ public class Author(
     public string Bio { get; private set; } = bio;
     public string Url { get; private set; } = url;
     public string Email { get; private set; } = email;
-    public byte Type { get; private set; } = type;
+    public byte Type { get; private set; } = 1;
 }

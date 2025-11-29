@@ -1,7 +1,14 @@
 ﻿namespace DevLearningAPI.Models;
 
 
-public class Category(string title, string url, string summary, int order, string description, bool featured)
+public class Category(
+    string title,
+    string url, 
+    string summary, 
+    int order, 
+    string description, 
+    bool featured
+    )
 {
     public Guid Id { get; private set; } = Guid.NewGuid();
     public string Title { get; private set; } = title;
