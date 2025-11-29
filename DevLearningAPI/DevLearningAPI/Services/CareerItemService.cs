@@ -11,15 +11,9 @@ namespace DevLearningAPI.Services
         #region RepositoryDependecyInjection
         private readonly ICareerItemRepository _careerItemRepository;
 
-        private readonly ICareerRepository _careerRepository;
-
-        private readonly ICourseRepository _courseRepository;
-
-        public CareerItemService(ICareerItemRepository careerItemRepository,ICareerRepository careerRepository,ICourseRepository courseRepository)
+        public CareerItemService(ICareerItemRepository careerItemRepository)
         {
             _careerItemRepository = careerItemRepository;
-            _careerRepository = careerRepository;
-            _courseRepository = courseRepository;
         }
         #endregion
 
@@ -32,7 +26,7 @@ namespace DevLearningAPI.Services
                                                 careerItem.Description,
                                                 careerItem.Order
                                               );
-            await _careerItemRepository.CreateCareeritemAsync(newCareerItem);
+            await _careerItemRepository.CreateCareerItemAsync(newCareerItem);
         }
     }
 }

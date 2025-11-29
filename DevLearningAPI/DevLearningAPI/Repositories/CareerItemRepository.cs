@@ -22,7 +22,7 @@ namespace DevLearningAPI.Repositories
             using(var con = _connecton.GetConnection())
             {
                 var sql = @"INSERT INTO CareerItem (CareerId, CourseId, Title, Description, [Order])
-                                         VALUES(@CareerId, @CourseId, @Title, @Description,@Order), ";
+                                         VALUES(@CareerId, @CourseId, @Title, @Description,@Order) ";
 
                 await con.ExecuteAsync(sql, new {CareerId = careerItem.CareerId,
                                                  CourseId = careerItem.CourseId,

@@ -11,11 +11,11 @@ namespace DevLearningAPI.Controllers
     public class CareerItemController : ControllerBase, ICareerItemController
     {
         #region ServiceDependencyInjection
-        public readonly ICareerItemService _careerItemService;
+        private readonly ICareerItemService _careerItemService;
 
-        public readonly ICareerService _careerService;
+        private readonly ICareerService _careerService;
 
-        public readonly ICourseService _courseService;
+        private readonly ICourseService _courseService;
 
         public CareerItemController(ICareerItemService careerItemService, ICareerService careerService, ICourseService courseService)
         {
@@ -31,7 +31,7 @@ namespace DevLearningAPI.Controllers
             try
             {
                 var careerFound = await _careerService.GetCareerByIdAsync(careerItem.CareerId);
-                var courseFound =  _courseService.GetCourseByIdAsync(careerItem.CourseId);
+                var courseFound =  await _courseService.GetCourseByIdAsync(careerItem.CourseId);
 
                 if (careerFound is null || careerFound.Active is false)
                     return NotFound("Career does not exist or is inactive!");

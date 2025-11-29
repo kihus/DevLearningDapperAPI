@@ -1,15 +1,16 @@
 ﻿using DevLearningAPI.Models;
 using DevLearningAPI.Models.Dtos.Course;
 using DevLearningAPI.Repositories;
+using DevLearningAPI.Repositories.Interfaces;
 using DevLearningAPI.Services.Interfaces;
 
 namespace DevLearningAPI.Services;
 
 public class CourseService : ICourseService
 {
-	private readonly CourseRepository _repository;
+	private readonly ICourseRepository _repository;
 
-	public CourseService(CourseRepository repository)
+	public CourseService(ICourseRepository repository)
 	{
 		_repository = repository;
 	}
