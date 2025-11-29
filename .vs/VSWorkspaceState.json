@@ -1,7 +1,14 @@
 {
   "ExpandedNodes": [
+<<<<<<< HEAD
     ""
   ],
   "SelectedNode": "\\C:\\Users\\sucod\\Source\\Repos\\DevLearningAPI",
+=======
+    "",
+    "\\DevLearningAPI"
+  ],
+  "SelectedNode": "\\DevLearningAPI\\DevLearningAPI.slnx",
+>>>>>>> feat-course
   "PreviewInSolutionExplorer": false
 }
