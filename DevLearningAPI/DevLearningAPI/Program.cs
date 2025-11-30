@@ -30,8 +30,6 @@ builder.Services.AddScoped<StudentService>();
 builder.Services.AddScoped<ICareerItemRepository, CareerItemRepository>();
 builder.Services.AddScoped<ICareerItemService, CareerItemService>();
 
-
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
