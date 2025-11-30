@@ -96,7 +96,7 @@ namespace DevLearningAPI.Controllers
 				if (situation == true)
 					return Ok(new { message = "Course is already active!", active = true });
 
-                return Ok(new { message = "Course is already active!", active = situation });
+                return Ok(new { message = "Course situation is updated to active!", active = situation });
             }
 			catch (Exception ex)
 			{
@@ -110,10 +110,11 @@ namespace DevLearningAPI.Controllers
 		{
 			try
 			{
-				if (await _service.GetCourseByIdAsync(id) is null)
+				var deletar = await _service.DeleteCourseAsync(id);
+
+				if (deletar is null)
 					return NotFound("Register not found!");
 
-				await _service.DeleteCourseAsync(id);
 				return NoContent();
 			}
 			catch (Exception ex)

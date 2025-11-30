@@ -9,5 +9,5 @@ public interface ICourseService
 	public Task CreateCourseAsync(CreateCourseDto courseDto);
 	public Task UpdateCourseAsync(Guid id, UpdateCourseDto courseDto);
 	public Task<bool?> ActiveCourseAsync(Guid id);
-    public Task DeleteCourseAsync(Guid id);
+    public Task<bool?> DeleteCourseAsync(Guid id);
 }

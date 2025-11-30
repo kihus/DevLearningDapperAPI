@@ -78,17 +78,25 @@ public class StudentRepository : IStudentRepository
 			});
 		}
     }
-    public async Task DeleteStudentAsync(Guid studentId)
+    public async Task<bool> DeleteStudentAsync(Guid studentId)
 	{
 		using (var con = _connection.GetConnection())
 		{
-			var sqlDeleteStudent = @"Delete FROM Student 
-                    WHERE Id = @Id";
-            await con.ExecuteAsync(sqlDeleteStudent, new { Id = studentId });
+            var sqlExists = @"SELECT COUNT(1) FROM Student WHERE Id = @Id";
+            var exists = await con.ExecuteScalarAsync<int>(sqlExists, new { Id = studentId });
+
+            if (exists == 0)
+                return false;
 
             var sqlDeleteRelation = @"Delete FROM StudentCourse 
 					WHERE StudentId = @Id";
             await con.ExecuteAsync(sqlDeleteRelation, new { Id = studentId });
+
+            var sqlDeleteStudent = @"Delete FROM Student 
+                    WHERE Id = @Id";
+            await con.ExecuteAsync(sqlDeleteStudent, new { Id = studentId });
+
+			return true;
         }
 	}
 }

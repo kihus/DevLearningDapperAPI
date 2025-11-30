@@ -42,8 +42,8 @@ public class StudentService : IStudentService
 		await _repository.UpdatePhoneStudentAsync(studentId, dtoPhone.Phone);
 	}
 
-	public async Task DeleteStudentAsync(Guid studentId)
+	public async Task<bool> DeleteStudentAsync(Guid studentId)
 	{
-		await _repository.DeleteStudentAsync(studentId);
+		return await _repository.DeleteStudentAsync(studentId);
     }
 }

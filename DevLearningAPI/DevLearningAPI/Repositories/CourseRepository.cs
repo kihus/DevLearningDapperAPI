@@ -114,7 +114,18 @@ public class CourseRepository : ICourseRepository
 		}
 	}
 
-	public async Task UpdateCourseAsync(Guid id, Course course)
+    public async Task<bool> CourseExistsAsync(Guid id)
+    {
+        var sql = @"SELECT COUNT(1) FROM Course WHERE Id = @Id";
+
+        using (var con = _connection.GetConnection())
+        {
+            var count = await con.ExecuteScalarAsync<int>(sql, new { Id = id });
+            return count > 0;
+        }
+    }
+
+    public async Task UpdateCourseAsync(Guid id, Course course)
 	{
 		var sql = @"UPDATE Course SET [Tag] = @Tag, 
 									  [Title] = @Title, 
@@ -192,7 +203,7 @@ public class CourseRepository : ICourseRepository
 			var active = await GetCourseActiveAsync(id);
 
 			if (active == null)
-				return false;
+				return null;
 
 			bool newValue = false;
 
