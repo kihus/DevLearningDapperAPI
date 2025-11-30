@@ -1,6 +1,5 @@
-﻿namespace DevLearningAPI.Repositories
+﻿namespace DevLearningAPI.Repositories;
+
+public class StudentCourseRepository
 {
-    public class StudentCourseRepository
-    {
-    }
 }
