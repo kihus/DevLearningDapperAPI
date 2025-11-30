@@ -1,6 +1,12 @@
 ﻿namespace DevLearningAPI.Models;
 
-public class CareerItem
+public class CareerItem(
+    Guid careerId, 
+    Guid courseId, 
+    string title, 
+    string description, 
+    int order
+    )
 {
 
     public int CareerId { get; set; }

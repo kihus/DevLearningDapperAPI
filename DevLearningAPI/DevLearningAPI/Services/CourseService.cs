@@ -1,4 +1,6 @@
-﻿using DevLearningAPI.Repositories;
+﻿using DevLearningAPI.Models;
+using DevLearningAPI.Models.Dtos.Course;
+using DevLearningAPI.Repositories.Interfaces;
 using DevLearningAPI.Services.Interfaces;
 
 namespace DevLearningAPI.Services;
