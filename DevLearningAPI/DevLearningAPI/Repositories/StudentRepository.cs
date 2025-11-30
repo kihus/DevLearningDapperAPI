@@ -80,12 +80,15 @@ public class StudentRepository : IStudentRepository
     }
     public async Task DeleteStudentAsync(Guid studentId)
 	{
-		var sql = @"Delete FROM Student 
-                    WHERE Id = @Id";
-
-		using(var con = _connection.GetConnection())
+		using (var con = _connection.GetConnection())
 		{
-			await con.ExecuteAsync(sql, new { Id = studentId });
-		}
+			var sqlDeleteStudent = @"Delete FROM Student 
+                    WHERE Id = @Id";
+            await con.ExecuteAsync(sqlDeleteStudent, new { Id = studentId });
+
+            var sqlDeleteRelation = @"Delete FROM StudentCourse 
+					WHERE StudentId = @Id";
+            await con.ExecuteAsync(sqlDeleteRelation, new { Id = studentId });
+        }
 	}
 }

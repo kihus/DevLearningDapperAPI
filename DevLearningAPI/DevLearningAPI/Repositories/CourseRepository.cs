@@ -150,14 +150,64 @@ public class CourseRepository : ICourseRepository
 		}
 	}
 
-
-	public async Task DeleteCourseAsync(Guid id)
+	public async Task<bool?> GetCourseActiveAsync(Guid id)
 	{
-		var sql = @"DELETE FROM Course WHERE Id = @Id";
+		var sql = @"SELECT Active FROM Course WHERE Id = @Id";
+		using (var con = _connection.GetConnection())
+		{
+			return await con.QueryFirstOrDefaultAsync<bool?>(sql, new { Id = id });
+		}
+    }
+
+    public async Task<bool?> ActiveCourseAsync(Guid id)
+    {
+
+        var active = await GetCourseActiveAsync(id);
+
+        if (active == null)
+            return null;
+
+        if (active == true)
+            return true;
+
+        var sqlUpdateActive = @"UPDATE Course
+                    SET Active = @Active, LastUpdateDate = GETDATE() 
+                    WHERE Id = @Id";
+
+        bool newValue = true;
+
+        using (var con = _connection.GetConnection())
+        {
+            await con.ExecuteAsync(sqlUpdateActive, new { Active = newValue, Id = id });
+        }
+        return newValue;
+    }
+
+
+
+
+    public async Task<bool?> DeleteCourseAsync(Guid id)
+	{
+		
+			var active = await GetCourseActiveAsync(id);
+
+			if (active == null)
+				return false;
+
+			bool newValue = false;
+
+			var sqlUpdateActive = @"UPDATE Course
+                    SET Active = @Active, LastUpdateDate = GETDATE() 
+                    WHERE Id = @Id";
+
+		    var sqlDeleteRelation = @"DELETE FROM StudentCourse
+					WHERE CourseId = @Id";
 
 		using (var con = _connection.GetConnection())
 		{
-			await con.ExecuteAsync(sql, new { id });
-		}
+			await con.ExecuteAsync(sqlUpdateActive, new { Active = newValue, Id = id });
+			await con.ExecuteAsync(sqlDeleteRelation, new { Id = id });
+        }
+		return newValue;
 	}
 }

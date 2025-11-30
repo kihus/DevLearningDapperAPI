@@ -83,7 +83,29 @@ namespace DevLearningAPI.Controllers
 			}
 		}
 
-		[HttpDelete("{id}")]
+		[HttpPut("active/{id}")]
+        public async Task<ActionResult> ActiveCourseAsync(Guid id)
+		{
+			try
+			{
+                var situation = await _service.ActiveCourseAsync(id);
+
+				if (situation is null)
+					return NotFound("Register not found!");
+
+				if (situation == true)
+					return Ok(new { message = "Course is already active!", active = true });
+
+                return Ok(new { message = "Course is already active!", active = situation });
+            }
+			catch (Exception ex)
+			{
+                return Problem(ex.Message);
+            }
+        }
+
+
+        [HttpDelete("{id}")]
 		public async Task<ActionResult> DeleteCourse(Guid id)
 		{
 			try

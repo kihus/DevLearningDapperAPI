@@ -84,8 +84,12 @@ public class CourseService : ICourseService
 
 		await _repository.UpdateCourseAsync(id, course);
 	}
+    public async Task<bool?> ActiveCourseAsync(Guid id)
+	{
+		return await _repository.ActiveCourseAsync(id);
+    }
 
-	public async Task DeleteCourseAsync(Guid id)
+    public async Task DeleteCourseAsync(Guid id)
 	{
 		await _repository.DeleteCourseAsync(id);
 	}
