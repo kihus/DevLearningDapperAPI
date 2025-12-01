@@ -63,7 +63,7 @@ namespace DevLearningAPI.Controllers
                 if (careerItemFound is null)
                     return NotFound("Registro não encontrado!");
 
-                await _careerItemService.UpdateCareerItemAsync(careerItem);
+                await _careerItemService.UpdateCareerItemAsync(careerItem.CareerId, careerItem.CourseId, careerItem);
                 return NoContent();
             }
             catch (Exception ex)

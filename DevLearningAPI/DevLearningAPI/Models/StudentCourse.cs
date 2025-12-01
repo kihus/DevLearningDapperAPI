@@ -9,7 +9,7 @@ public class StudentCourse
     public byte Progress { get; private set; }
     public bool Favorite { get; private set; }
     public DateTime StartDate { get; private set; }
-    public DateTime LastUpdateDate { get; private set; }
+    public DateTime RelationLastUpdateDate { get; private set; }
 
 
     public StudentCourse() { }

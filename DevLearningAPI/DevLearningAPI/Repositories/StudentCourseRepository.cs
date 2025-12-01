@@ -20,14 +20,14 @@ namespace DevLearningAPI.Repositories
 
         public async Task<List<StudentCourseResponseDto>> GetAllStudentCoursesAsync()
         {
-            var sql = @"SELECT s.Id AS StudentId, s.Name, s.Email, s.Document, s.Phone, s.Birthdate, s.CreateDate AS StudentCreateDate,
+            var sql = @"SELECT s.Id AS StuId, s.Name, s.Email, s.Document, s.Phone, s.Birthdate, s.CreateDate AS StudentCreateDate,
                         sc.Progress, 
-                        sc.Favorite AS SCFavorite, 
+                        sc.[Favorite], 
                         sc.StartDate, 
                         sc.LastUpdateDate AS RelationLastUpdateDate,
                         sc.StudentId,
                         sc.CourseId, 
-                        c.Id AS Id, c.Tag, c.Title, c.Summary, c.Url, c.DurationInMinutes, c.Level, c.CreateDate AS CourseCreateDate,
+                        c.Id, c.Tag, c.Title, c.Summary, c.Url, c.DurationInMinutes, c.Level, c.CreateDate AS CourseCreateDate,
                         c.LastUpdateDate  AS CourseLastUpdateDate, c.Active, c.Free, c.Featured, c.Tags, 
                         a.Name AS AuthorName, ca.Title AS CategoryName
                     FROM Student s
@@ -44,11 +44,11 @@ namespace DevLearningAPI.Repositories
             {
                 var studentDictionary = new Dictionary<Guid, StudentCourseResponseDto>();
 
-                await con.QueryAsync<StudentCourseResponseDto, StudentCourse, CourseResponseDto, StudentCourseResponseDto>(
+               await con.QueryAsync<StudentCourseResponseDto, StudentCourse, CourseResponseDto, StudentCourseResponseDto>(
                     sql,
                     (student, studentCourse, course) =>
                     {
-                        if (!studentDictionary.TryGetValue(student.StudentId, out var studentEntry))  //studentEntry recebe o valor do dicionario se a chave ja existir
+                        if (!studentDictionary.TryGetValue(student.StuId, out var studentEntry))  //studentEntry recebe o valor do dicionario se a chave ja existir
                         {
                             studentEntry = student;
                             studentDictionary.Add(studentEntry.StudentId, studentEntry);
@@ -57,17 +57,17 @@ namespace DevLearningAPI.Repositories
                         var courseWithRelation = new CourseWithRelationDto
                         {
                             Course = course,
-                            Progress = GetProgressStudentCourseAsync(student.StudentId, course.Id).Result,
-                            SCFavorite = studentCourse.Favorite,
+                            Progress = GetProgressStudentCourseAsync(student.StuId, course.Id).Result,
+                            Favorite = studentCourse.Favorite,
                             StartDate = studentCourse.StartDate,
-                            CourseLastUpdateDate = studentCourse.LastUpdateDate
+                            LastUpdateDate = studentCourse.RelationLastUpdateDate
                         };
 
                         studentEntry.Courses.Add(courseWithRelation);
 
                         return studentEntry;
                     },
-                    splitOn: "StudentId,Progress,Id"
+                    splitOn: "StuId,Progress,Id"
                 );
                 return studentDictionary.Values.ToList();
             }

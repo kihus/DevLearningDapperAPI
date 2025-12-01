@@ -13,7 +13,7 @@ namespace DevLearningAPI.Services.Interfaces
 
         Task<CareerItemResponseDto> GetCareerItemByCareerCourseIdAsync(Guid careerId, Guid courseId);
 
-        Task UpdateCareerItemAsync(UpdateCareerItemDto careerItem);
+        Task UpdateCareerItemAsync(Guid idCareer, Guid idCourse, UpdateCareerItemDto careerItemRequest);
 
         Task DeleteAllCareerItemByCareerIdAsync(Guid careerId);
 

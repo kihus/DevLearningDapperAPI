@@ -155,3 +155,6 @@ _NCrunch*
 *.bin
 *.suo
 *.json
+/DevLearningAPI/.vs/DevLearningAPI.slnx/v18/.futdcache.v2
+/DevLearningAPI/.vs/DevLearningAPI.slnx/v18/DocumentLayout.backup.json
+/DevLearningAPI/.vs/DevLearningAPI.slnx/v18/DocumentLayout.json
