@@ -19,19 +19,19 @@ namespace DevLearningAPI.Services
             return await _repository.GetAllStudentCoursesAsync();
         }
 
-        public async Task CreateStudentCourseAsync(CreateStudantCourseDto studentCourse, Guid studentId, Guid courseId)
+        public async Task CreateStudentCourseAsync(CreateStudentCourseDto studentCourse)
         {
             var newStudentCourse =  new StudentCourse
             (
-                studentCourse.StudantId,
+                studentCourse.StudentId,
                 studentCourse.CourseId
             );
-            if (studentId == Guid.Empty || courseId == Guid.Empty)
+            if (studentCourse.StudentId == Guid.Empty || studentCourse.CourseId == Guid.Empty)
             {
                 throw new ArgumentException("StudentId and CourseId must be valid GUID's.");
             }
 
-            await _repository.CreateStudentCourseAsync(studentId, courseId);
+            await _repository.CreateStudentCourseAsync(studentCourse.StudentId, studentCourse.CourseId);
         }
 
         public async Task UpdateCourseProgressAsync(Guid studentId, Guid courseId, int minutesWatched)
@@ -51,9 +51,9 @@ namespace DevLearningAPI.Services
         }
 
 
-        public async Task<bool> UpdateFavoriteStudentCourse(Guid studentId, Guid courseId)
+        public async Task<bool> UpdateFavoriteStudentCourse(CreateStudentCourseDto studentCourse)
         {
-            return await _repository.UpdateFavoriteStudentCourse(studentId, courseId);
+            return await _repository.UpdateFavoriteStudentCourse(studentCourse.StudentId, studentCourse.CourseId);
         }
 
         internal async Task<bool> GetRelationStudentCourseAsync(Guid studentId, Guid courseId)

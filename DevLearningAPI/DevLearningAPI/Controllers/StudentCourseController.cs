@@ -36,13 +36,13 @@ namespace DevLearningAPI.Controllers
             }
         }
 
-        [HttpPost("students/{studentId:guid}/courses/{courseId:guid}")]
-        public async Task<ActionResult> CreateStudentCourseAsync(CreateStudantCourseDto studentCourse,Guid studentId, Guid courseId)
+        [HttpPost("students/courses/")]
+        public async Task<ActionResult> CreateStudentCourseAsync(CreateStudentCourseDto studentCourse)
         {
             try
             {
 
-                await _service.CreateStudentCourseAsync(studentCourse,studentId, courseId);
+                await _service.CreateStudentCourseAsync(studentCourse);
                 return Created("Student enrolled with sucess!", null);
             }
             catch (Exception ex)
@@ -69,19 +69,17 @@ namespace DevLearningAPI.Controllers
 
         }
 
-        [HttpPut("update-favorite/students/{studentId:guid}/courses/{courseId:guid}/favorite")]
-        public async Task<ActionResult> UpdateFavoriteStudentCourse(Guid studentId, Guid courseId)
+        [HttpPut("update-favorite/students/courses/favorite")]
+        public async Task<ActionResult> UpdateFavoriteStudentCourse(CreateStudentCourseDto studentCourse)
         {
             try
             {
-
-                var existsRelationShip = await _service.GetRelationStudentCourseAsync(studentId, courseId);
-                if (!await _service.GetRelationStudentCourseAsync(studentId, courseId))
+                if (!await _service.GetRelationStudentCourseAsync(studentCourse.StudentId, studentCourse.CourseId))
                     return BadRequest();
 
-                var newValue = await _service.UpdateFavoriteStudentCourse(studentId, courseId);
+                var newValue = await _service.UpdateFavoriteStudentCourse(studentCourse);
                 if (newValue == null)
-                    return NotFound(new { message = "Student-Course relationship not found." });
+                    return NotFound();
 
                 return NoContent();
 

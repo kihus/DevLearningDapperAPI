@@ -1,9 +1,9 @@
 ﻿namespace DevLearningAPI.Models.Dtos.StudantCourse
 {
-    public class CreateStudantCourseDto
+    public class CreateStudentCourseDto
     {
         public Guid CourseId { get; init; }
-        public Guid StudantId { get; init; }
+        public Guid StudentId { get; init; }
    
     }
 }
