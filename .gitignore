@@ -9,3 +9,9 @@
 /DevLearningAPI/DevLearningAPI/obj/Debug/net9.0/refint
 /DevLearningAPI/DevLearningAPI/obj/Debug/net9.0
 /DevLearningAPI/DevLearningAPI/obj
+*.db
+*.db-shm
+*.db-wal
+*.bin
+*.suo
+*.json
