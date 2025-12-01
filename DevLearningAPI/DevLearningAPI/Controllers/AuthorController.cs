@@ -34,7 +34,25 @@ namespace DevLearningAPI.Controllers
 			}
 		}
 
-		[HttpGet("{id}")]
+        [HttpGet("Active")]
+        public async Task<ActionResult<List<AuthorResponseDto>>> GetAllActiveAuthorsAsync()
+        {
+            try
+            {
+                var authors = await _service.GetAllActiveAuthorsAsync();
+
+                if (authors.Count is 0)
+                    return NotFound("Register not found!");
+
+                return Ok(authors);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
+        [HttpGet("{id}")]
 		public async Task<ActionResult<AuthorResponseDto>> GetAuthorByIdAsync(Guid id)
 		{
 			try

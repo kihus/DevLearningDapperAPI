@@ -34,7 +34,8 @@ namespace DevLearningAPI.Services
 
         public async Task<List<CareerResponseDto>> GetAllCareersAsync()
         {
-            return await _careerRepository.GetAllCareersAsync();
+            var careers = await _careerRepository.GetAllCareersAsync();
+            return careers.OrderBy(x => x.Title).ToList();
         }
 
         public async Task<CareerResponseDto> GetCareerByIdAsync(Guid careerId)
@@ -65,7 +66,7 @@ namespace DevLearningAPI.Services
                                         ? career.Tags
                                         : careerRequest.Tags
                 );
-            await _careerRepository.UpdateCareerAsync(careerId,newCareer);
+            await _careerRepository.UpdateCareerAsync(careerId, newCareer);
         }
 
         public async Task ChangeActiveAsync(Guid careerId)

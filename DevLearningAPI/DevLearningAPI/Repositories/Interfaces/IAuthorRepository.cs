@@ -5,6 +5,7 @@ namespace DevLearningAPI.Repositories.Interfaces;
 
 public interface IAuthorRepository
 {
+    Task<List<AuthorResponseDto>> GetAllActiveAuthorsAsync();
     Task<List<AuthorResponseDto>> GetAllAuthorsAsync();
     Task<AuthorResponseDto> GetAuthorByIdAsync(Guid id);
     Task CreateAuthorAsync(Author author);

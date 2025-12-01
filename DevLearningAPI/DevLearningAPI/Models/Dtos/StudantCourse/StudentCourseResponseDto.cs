@@ -5,13 +5,13 @@ namespace DevLearningAPI.Models.Dtos.StudantCourse
 {
     public class StudentCourseResponseDto
     {
-        public Guid StuId { get; set; }
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public string Document { get; set; }
-        public string Phone { get; set; }
-        public DateTime Birthdate { get; set; }
-        public DateTime CreateDate { get; set; }
-        public List<CourseWithRelationDto> Courses { get; set; } = new List<CourseWithRelationDto>();
+        public Guid StuId { get; init; }
+        public string Name { get; init; } = string.Empty;
+        public string Email { get; init; } = string.Empty;
+        public string Document { get; init; } = string.Empty;
+        public string Phone { get; init; } = string.Empty;
+        public DateTime Birthdate { get; init; }
+        public DateTime CreateDate { get; init; }
+        public List<CourseWithRelationDto> Courses { get; init; } = [];
     }
 }
