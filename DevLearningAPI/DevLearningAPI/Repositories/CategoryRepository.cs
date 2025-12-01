@@ -3,9 +3,6 @@ using DevLearningAPI.Database;
 using DevLearningAPI.Models;
 using DevLearningAPI.Models.Dtos.Category;
 using DevLearningAPI.Repositories.Interfaces;
-using Microsoft.Data.SqlClient;
-using System;
-using System.Data.SqlTypes;
 
 namespace DevLearningAPI.Repositories;
 
