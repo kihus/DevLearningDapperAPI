@@ -99,4 +99,22 @@ public class StudentRepository : IStudentRepository
             return true;
         }
     }
+
+
+
+
+
+
+    public async Task<StudentResponseDto?> GetStudentByIdAsync(Guid studentId)
+    {
+        var sql = @"SELECT Id, Name, Email, Document, Phone, Birthdate, CreateDate
+                FROM Student
+                WHERE Id = @Id";
+
+        using (var con = _connection.GetConnection())
+        {
+            return await con.QueryFirstOrDefaultAsync<StudentResponseDto>(sql, new { Id = studentId });
+        }
+    }
+
 }

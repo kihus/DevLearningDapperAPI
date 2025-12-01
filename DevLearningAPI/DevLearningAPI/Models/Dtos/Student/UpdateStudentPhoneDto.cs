@@ -2,6 +2,6 @@
 {
     public class UpdateStudentPhoneDto
     {
-        public string? Phone { get; set; }
+        public string? Phone { get; init; } = string.Empty;
     }
 }

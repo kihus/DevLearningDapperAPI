@@ -42,6 +42,7 @@ public class CategoryService : ICategoryService
 		var category = await _repository.GetCategoryByIdAsync(id);
 
 		var newCategory = new Category(
+
 			string.IsNullOrEmpty(categoryRequest.Title) 
 							   ? category.Title 
 							   : categoryRequest.Title,
@@ -57,6 +58,7 @@ public class CategoryService : ICategoryService
 			string.IsNullOrEmpty(categoryRequest.Description) 
 							   ? category.Description 
 							   : categoryRequest.Description,
+
 								 categoryRequest.Featured
 									  );
 

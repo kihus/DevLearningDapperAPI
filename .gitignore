@@ -142,3 +142,16 @@ _NCrunch*
 /DevLearningAPI/.vs/DevLearningAPI.slnx/v18/DocumentLayout.backup.json
 /DevLearningAPI/.vs/DevLearningAPI.slnx/v18/DocumentLayout.json
 
+/.vs/VSWorkspaceState.json
+*.bin
+/DevLearningAPI/DevLearningAPI/bin/Debug/net9.0
+/DevLearningAPI/DevLearningAPI/obj/Debug/net9.0/ref
+/DevLearningAPI/DevLearningAPI/obj/Debug/net9.0/refint
+/DevLearningAPI/DevLearningAPI/obj/Debug/net9.0
+/DevLearningAPI/DevLearningAPI/obj
+*.db
+*.db-shm
+*.db-wal
+*.bin
+*.suo
+*.json

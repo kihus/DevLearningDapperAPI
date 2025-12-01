@@ -32,7 +32,7 @@ namespace DevLearningAPI.Controllers
             try
             {
                 var careerFound = await _careerService.GetCareerByIdAsync(careerItem.CareerId);
-                var courseFound =  await _courseService.GetCourseByIdAsync(careerItem.CourseId);
+                var courseFound = await _courseService.GetCourseByIdAsync(careerItem.CourseId);
 
                 if (careerFound is null || careerFound.Active is false)
                     return NotFound("Career does not exist or is inactive!");
@@ -43,7 +43,7 @@ namespace DevLearningAPI.Controllers
                 await _careerItemService.CreateCareeritemAsync(careerItem);
                 return Created();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Problem(ex.Message);
             }
@@ -54,12 +54,14 @@ namespace DevLearningAPI.Controllers
         {
             try
             {
-                var careerItemFound = await _careerItemService.GetCareerItemByCareerCourseIdAsync(careerItem.CareerId,careerItem.CourseId);
+                if (careerItem.CareerId == Guid.Empty || careerItem.CourseId == Guid.Empty)
+                    return BadRequest("CareerId e CourseId precisam ser informados.");
+
+                var careerItemFound = await _careerItemService
+                    .GetCareerItemByCareerCourseIdAsync(careerItem.CareerId, careerItem.CourseId);
 
                 if (careerItemFound is null)
-                    return NotFound("Register not found!");
-
-
+                    return NotFound("Registro não encontrado!");
 
                 await _careerItemService.UpdateCareerItemAsync(careerItem.CareerId, careerItem.CourseId, careerItem);
                 return NoContent();
@@ -93,19 +95,19 @@ namespace DevLearningAPI.Controllers
             await _careerItemService.DeleteAllCareerItemByCourseIdAsync(courseId);
             return NoContent();
         }
-        
+
         [HttpDelete("CareerCourse/{careerId}/{courseId}")]
-        public async Task<ActionResult> DeleteCareerItemByCareerCourseIdAsync(Guid careerId,Guid courseId)
+        public async Task<ActionResult> DeleteCareerItemByCareerCourseIdAsync(Guid careerId, Guid courseId)
         {
-            var careerItemFound = await _careerItemService.GetCareerItemByCareerCourseIdAsync(careerId,courseId);
+            var careerItemFound = await _careerItemService.GetCareerItemByCareerCourseIdAsync(careerId, courseId);
 
             if (careerItemFound is null)
                 return NotFound("Register not found!");
 
-            await _careerItemService.DeleteCareerItemByCareerCourseIdAsync(careerId,courseId);
+            await _careerItemService.DeleteCareerItemByCareerCourseIdAsync(careerId, courseId);
             return NoContent();
         }
-        
+
 
     }
 }

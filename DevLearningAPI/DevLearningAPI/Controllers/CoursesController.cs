@@ -100,5 +100,29 @@ namespace DevLearningAPI.Controllers
 				return Problem(ex.Message);
 			}
 		}
+
+
+
+
+
+
+		[HttpGet("ordered")]
+		public async Task<ActionResult<List<CourseResponseDto>>> GetAllCoursesOrdered()
+		{
+			try
+			{
+				var courses = await _service.GetAllCoursesOrderedAsync();
+
+				if (courses.Count is 0)
+					return NotFound("Register not found!");
+
+				return Ok(courses);
+			}
+			catch (Exception ex)
+			{
+				return Problem(ex.Message);
+			}
+		}
+
 	}
 }

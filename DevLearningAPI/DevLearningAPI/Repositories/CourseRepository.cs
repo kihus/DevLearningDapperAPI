@@ -161,4 +161,28 @@ public class CourseRepository : ICourseRepository
 			await con.ExecuteAsync(sql, new { id });
 		}
 	}
+
+
+
+
+
+
+
+	public async Task<List<CourseResponseDto>> GetAllCoursesOrderedAsync()
+	{
+		var sql = @"SELECT co.Id, co.Tag, co.Title, co.Summary, co.Url, co.DurationInMinutes, co.Level, 
+					   co.CreateDate, co.LastUpdateDate, co.Active, co.Free, co.Featured, co.Tags,      
+					   a.[Name] AS AuthorName, ca.[Title] AS CategoryName 
+				FROM Course co
+				JOIN Author a ON co.AuthorId = a.Id
+				JOIN Category ca ON co.CategoryId = ca.Id
+				WHERE co.Active = 1
+				ORDER BY co.Title ASC";
+
+		using (var con = _connection.GetConnection())
+		{
+			return (await con.QueryAsync<CourseResponseDto>(sql)).ToList();
+		}
+	}
+
 }
