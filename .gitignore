@@ -133,8 +133,12 @@ $RECYCLE.BIN/
 _NCrunch*
 /DevLearningAPI/.vs/DevLearningAPI.slnx
 /DevLearningAPI/.vs/DevLearningAPI.slnx/FileContentIndex
+
+/DevLearningAPI/.vs/DevLearningAPI.slnx/DesignTimeBuild/.dtbcache.v2
+
 /.vs/DevLearningDapperAPI/v17
 /DevLearningAPI/.vs/DevLearningAPI/CopilotIndices/17.14.1431.25910
 /DevLearningAPI/.vs/DevLearningAPI.slnx/v18/.futdcache.v2
 /DevLearningAPI/.vs/DevLearningAPI.slnx/v18/DocumentLayout.backup.json
 /DevLearningAPI/.vs/DevLearningAPI.slnx/v18/DocumentLayout.json
+
