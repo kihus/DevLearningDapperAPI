@@ -143,7 +143,7 @@ namespace DevLearningAPI.Repositories
 
             using (var con = _connection.GetConnection())
             {
-                await con.ExecuteAsync(sql, new { Progress = progress, StudentId = studentId, CourseId = courseId, });
+                await con.ExecuteAsync(sql, new { Progress = progress, StudentId = studentId, CourseId = courseId });
             }
             return progress;
         }
