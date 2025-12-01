@@ -2,10 +2,10 @@
 {
     public class CreateStudantCourseDto
     {
-        public Guid CourseId { get; set; }
-        public Guid StudantId { get; set; }
-        public byte Progress { get; set; } = 0;
-        public bool Favorite { get; set; } = false;
+        public Guid CourseId { get; init; }
+        public Guid StudantId { get; init; }
+        public byte Progress { get; init; } = 0;
+        public bool Favorite { get; init; } = false;
    
     }
 }

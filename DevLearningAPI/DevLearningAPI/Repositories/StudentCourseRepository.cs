@@ -22,7 +22,7 @@ namespace DevLearningAPI.Repositories
         {
             var sql = @"SELECT s.Id AS StudentId, s.Name, s.Email, s.Document, s.Phone, s.Birthdate, s.CreateDate AS StudentCreateDate,
                         sc.Progress, 
-                        sc.Favorite, 
+                        sc.Favorite AS SCFavorite, 
                         sc.StartDate, 
                         sc.LastUpdateDate AS RelationLastUpdateDate,
                         sc.StudentId,
@@ -44,14 +44,13 @@ namespace DevLearningAPI.Repositories
             {
                 var studentDictionary = new Dictionary<Guid, StudentCourseResponseDto>();
 
-                var result = await con.QueryAsync<StudentCourseResponseDto, StudentCourse, CourseResponseDto, StudentCourseResponseDto>(
+                await con.QueryAsync<StudentCourseResponseDto, StudentCourse, CourseResponseDto, StudentCourseResponseDto>(
                     sql,
                     (student, studentCourse, course) =>
                     {
                         if (!studentDictionary.TryGetValue(student.StudentId, out var studentEntry))  //studentEntry recebe o valor do dicionario se a chave ja existir
                         {
                             studentEntry = student;
-                            studentEntry.Courses = new List<CourseWithRelationDto>();
                             studentDictionary.Add(studentEntry.StudentId, studentEntry);
                         }
 
@@ -59,16 +58,16 @@ namespace DevLearningAPI.Repositories
                         {
                             Course = course,
                             Progress = GetProgressStudentCourseAsync(student.StudentId, course.Id).Result,
-                            Favorite = studentCourse.Favorite,
+                            SCFavorite = studentCourse.Favorite,
                             StartDate = studentCourse.StartDate,
-                            LastUpdateDate = studentCourse.LastUpdateDate
+                            CourseLastUpdateDate = studentCourse.LastUpdateDate
                         };
 
                         studentEntry.Courses.Add(courseWithRelation);
 
                         return studentEntry;
                     },
-                    splitOn: "StudentId,CourseId,Id"
+                    splitOn: "StudentId,Progress,Id"
                 );
                 return studentDictionary.Values.ToList();
             }

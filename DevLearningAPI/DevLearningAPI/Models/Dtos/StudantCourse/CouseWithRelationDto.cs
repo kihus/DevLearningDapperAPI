@@ -4,10 +4,10 @@ namespace DevLearningAPI.Models.Dtos.StudantCourse
 {
     public class CourseWithRelationDto
     {
-        public CourseResponseDto Course { get; set; }
-        public byte Progress { get; set; }
-        public bool Favorite { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime? LastUpdateDate { get; set; }
+        public CourseResponseDto Course { get; init; }
+        public byte Progress { get; init; }
+        public bool SCFavorite { get; init; }
+        public DateTime StartDate { get; init; }
+        public DateTime CourseLastUpdateDate { get; init; }
     }
 }
