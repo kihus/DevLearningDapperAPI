@@ -19,112 +19,116 @@ public class CareerItemRepository : ICareerItemRepository
 
     public async Task CreateCareerItemAsync(CareerItem careerItem)
     {
-        using(var con = _connecton.GetConnection())
+        using (var con = _connecton.GetConnection())
         {
             var sql = @"INSERT INTO CareerItem (CareerId, CourseId, Title, Description, [Order])
                                          VALUES(@CareerId, @CourseId, @Title, @Description,@Order) ";
 
-            await con.ExecuteAsync(sql, new {CareerId = careerItem.CareerId,
-                                             CourseId = careerItem.CourseId,
-                                             Title = careerItem.Title,
-                                             Description = careerItem.Description,
-                                             Order = careerItem.Order}
+            await con.ExecuteAsync(sql, new
+            {
+                CareerId = careerItem.CareerId,
+                CourseId = careerItem.CourseId,
+                Title = careerItem.Title,
+                Description = careerItem.Description,
+                Order = careerItem.Order
+            }
                                              );
         }
+    }
 
-        public async Task<CareerItemResponseDto> GetCareerItemByCareerIdAsync(Guid careerId)
+    public async Task<CareerItemResponseDto> GetCareerItemByCareerIdAsync(Guid careerId)
+    {
+        using (var con = _connecton.GetConnection())
         {
-            using (var con = _connecton.GetConnection())
-            {
-                var sql = @"SELECT CareerId,CourseId,Title,Description,[Order]
+            var sql = @"SELECT CareerId,CourseId,Title,Description,[Order]
                             FROM CareerItem
                             WHERE CareerId = @CareerId";
 
-                return await con.QueryFirstOrDefaultAsync<CareerItemResponseDto>(sql, new { CareerId = careerId });
-            }
-            
+            return await con.QueryFirstOrDefaultAsync<CareerItemResponseDto>(sql, new { CareerId = careerId });
         }
 
-        public async Task<CareerItemResponseDto> GetCareerItemByCourseIdAsync(Guid courseId)
+    }
+
+    public async Task<CareerItemResponseDto> GetCareerItemByCourseIdAsync(Guid courseId)
+    {
+        using (var con = _connecton.GetConnection())
         {
-            using (var con = _connecton.GetConnection())
-            {
-                var sql = @"SELECT CareerId,CourseId,Title,Description,[Order]
+            var sql = @"SELECT CareerId,CourseId,Title,Description,[Order]
                             FROM CareerItem
                             WHERE CourseId = @CourseId";
 
-                return await con.QueryFirstOrDefaultAsync<CareerItemResponseDto>(sql, new { CourseId = courseId });
-            }
+            return await con.QueryFirstOrDefaultAsync<CareerItemResponseDto>(sql, new { CourseId = courseId });
         }
+    }
 
-        public async Task<CareerItemResponseDto> GetCareerItemByCareerCourseIdAsync(Guid careerId, Guid courseId)
+    public async Task<CareerItemResponseDto> GetCareerItemByCareerCourseIdAsync(Guid careerId, Guid courseId)
+    {
+        using (var con = _connecton.GetConnection())
         {
-            using (var con = _connecton.GetConnection())
-            {
-                var sql = @"SELECT CareerId,CourseId,Title,Description,[Order]
+            var sql = @"SELECT CareerId,CourseId,Title,Description,[Order]
                             FROM CareerItem
                             WHERE CareerId = @CareerId
                             AND CourseId = @CourseId";
 
-                return await con.QueryFirstOrDefaultAsync<CareerItemResponseDto>(sql, new { CareerId = careerId,CourseId = courseId });
-            }
+            return await con.QueryFirstOrDefaultAsync<CareerItemResponseDto>(sql, new { CareerId = careerId, CourseId = courseId });
         }
+    }
 
-        public async Task UpdateCareerItemAsync(CareerItem careerItem)
+    public async Task UpdateCareerItemAsync(CareerItem careerItem)
+    {
+        using (var con = _connecton.GetConnection())
         {
-            using (var con = _connecton.GetConnection())
-            {
-                var sql = @"UPDATE CareerItem 
+            var sql = @"UPDATE CareerItem 
                             SET Title = @Title, 
                                 Description = @Description, 
                                 [Order] = @Order
                             WHERE CareerId = @CareerId
                             AND CourseId = @CourseId";
 
-                await con.ExecuteAsync(sql, new
-                {
-                    CareerId = careerItem.CareerId,
-                    CourseId = careerItem.CourseId,
-                    Title = careerItem.Title,
-                    Description = careerItem.Description,
-                    Order = careerItem.Order
-                }
-                                       );
-            }
-        }
-
-        public async Task DeleteAllCareerItemByCareerIdAsync(Guid careerId)
-        {
-            using(var con = _connecton.GetConnection())
+            await con.ExecuteAsync(sql, new
             {
-                var sql = @"DELETE FROM CareerItem
+                CareerId = careerItem.CareerId,
+                CourseId = careerItem.CourseId,
+                Title = careerItem.Title,
+                Description = careerItem.Description,
+                Order = careerItem.Order
+            }
+                                   );
+        }
+    }
+
+    public async Task DeleteAllCareerItemByCareerIdAsync(Guid careerId)
+    {
+        using (var con = _connecton.GetConnection())
+        {
+            var sql = @"DELETE FROM CareerItem
                             WHERE CareerId = @CareerId";
 
-                await con.ExecuteAsync(sql, new { CareerId = careerId });
-            }
+            await con.ExecuteAsync(sql, new { CareerId = careerId });
         }
+    }
 
-        public async Task DeleteAllCareerItemByCourseIdAsync(Guid courseId)
+    public async Task DeleteAllCareerItemByCourseIdAsync(Guid courseId)
+    {
+        using (var con = _connecton.GetConnection())
         {
-            using (var con = _connecton.GetConnection())
-            {
-                var sql = @"DELETE FROM CareerItem
+            var sql = @"DELETE FROM CareerItem
                             WHERE CourseId = @CourseId";
 
-                await con.ExecuteAsync(sql, new { CourseId = courseId });
-            }
+            await con.ExecuteAsync(sql, new { CourseId = courseId });
         }
+    }
 
-        public async Task DeleteCareerItemByCareerCourseIdAsync(Guid careerId, Guid courseId)
+    public async Task DeleteCareerItemByCareerCourseIdAsync(Guid careerId, Guid courseId)
+    {
+        using (var con = _connecton.GetConnection())
         {
-            using (var con = _connecton.GetConnection())
-            {
-                var sql = @"DELETE FROM CareerItem
+            var sql = @"DELETE FROM CareerItem
                             WHERE CareerId = @CareerId
                             AND CourseId = @CourseId";
 
-                await con.ExecuteAsync(sql, new { CareerId = careerId,CourseId = courseId });
-            }
+            await con.ExecuteAsync(sql, new { CareerId = careerId, CourseId = courseId });
         }
     }
 }
+
