@@ -2,10 +2,9 @@
 {
     public class UpdateCareerItemDto
     {
-        public Guid CareerId { get; init; } = Guid.NewGuid();
+        public Guid CareerId { get; init; }
 
-        public Guid CourseId { get; init; } = Guid.NewGuid();
-
+        public Guid CourseId { get; init; }
         public string Title { get; init; } = string.Empty;
 
         public string Description { get; init; } = string.Empty;

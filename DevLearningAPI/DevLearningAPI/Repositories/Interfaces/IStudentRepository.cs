@@ -11,4 +11,8 @@ public interface IStudentRepository
     public Task UpdateEmailStudentAsync(Guid studentId, string email);
     public Task UpdatePhoneStudentAsync(Guid studentId, string phone);
     public Task<bool> DeleteStudentAsync(Guid studentId);
+
+
+
+    Task<StudentResponseDto?> GetStudentByIdAsync(Guid studentId);
 }

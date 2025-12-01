@@ -22,7 +22,7 @@ public class CourseService : ICourseService
 	public async Task<CourseResponseDto?> GetCourseByIdAsync(Guid id)
 	{
 		return await _repository.GetCourseByIdAsync(id);
-	} 
+	}
 
 	public async Task CreateCourseAsync(CreateCourseDto courseDto)
 	{
@@ -71,14 +71,14 @@ public class CourseService : ICourseService
 			courseDto.Active,
 			courseDto.Free,
 			courseDto.Featured,
-			courseDto.AuthorId == Guid.Empty 
+			courseDto.AuthorId == Guid.Empty
 					  ? authorCategory.AuthorId
 					  : courseDto.AuthorId,
 			courseDto.CategoryId == Guid.Empty
-			          ? authorCategory.CategoryId
+					  ? authorCategory.CategoryId
 					  : courseDto.CategoryId,
 			string.IsNullOrEmpty(courseDto.Tags)
-								? courseResponse.Tags 
+								? courseResponse.Tags
 								: courseDto.Tags
 			);
 
@@ -89,4 +89,16 @@ public class CourseService : ICourseService
 	{
 		await _repository.DeleteCourseAsync(id);
 	}
+
+
+
+
+
+
+
+	public async Task<List<CourseResponseDto>> GetAllCoursesOrderedAsync()
+	{
+		return await _repository.GetAllCoursesOrderedAsync();
+	}
+
 }

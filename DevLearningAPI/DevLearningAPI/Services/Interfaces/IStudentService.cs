@@ -10,4 +10,7 @@ public interface IStudentService
     public Task UpdateEmailStudentAsync(Guid studentId, UpdateStudentEmailDto dtoEmail);
     public Task UpdatePhoneStudentAsync(Guid studentId, UpdateStudentPhoneDto dtoPhone);
     public Task<bool> DeleteStudentAsync(Guid studentId);
+
+    Task<StudentResponseDto?> GetStudentByIdAsync(Guid studentId);
+
 }

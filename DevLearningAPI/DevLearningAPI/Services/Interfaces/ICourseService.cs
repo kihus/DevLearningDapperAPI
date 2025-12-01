@@ -9,4 +9,9 @@ public interface ICourseService
 	public Task CreateCourseAsync(CreateCourseDto courseDto);
 	public Task UpdateCourseAsync(Guid id, UpdateCourseDto courseDto);
 	public Task DeleteCourseAsync(Guid id);
+
+
+
+
+	Task<List<CourseResponseDto>> GetAllCoursesOrderedAsync();
 }
