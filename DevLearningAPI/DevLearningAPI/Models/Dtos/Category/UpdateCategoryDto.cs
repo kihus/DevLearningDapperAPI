@@ -1,6 +1,6 @@
 ﻿namespace DevLearningAPI.Models.Dtos.Category;
 
-public class CreateCategoryDto
+public class UpdateCategoryDto
 {
     public string Title { get; init; } = string.Empty;
     public string Url { get; init; } = string.Empty;
