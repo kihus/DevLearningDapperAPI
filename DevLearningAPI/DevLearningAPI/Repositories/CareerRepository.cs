@@ -1,6 +1,8 @@
 ﻿using Dapper;
+using DevLearningAPI.Database;
 using DevLearningAPI.Models;
 using DevLearningAPI.Models.Dtos.Career;
+using DevLearningAPI.Repositories.Interfaces;
 
 namespace DevLearningAPI.Repositories;
 
