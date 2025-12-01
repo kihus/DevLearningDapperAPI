@@ -91,6 +91,29 @@ namespace DevLearningAPI.Controllers
             }
         }
 
+
+
+
+
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<StudentResponseDto>> GetStudentByIdAsync(Guid id)
+        {
+            try
+            {
+                var student = await _service.GetStudentByIdAsync(id);
+
+                if (student is null)
+                    return NotFound("Student not found!");
+
+                return Ok(student);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
     }
 
 }
