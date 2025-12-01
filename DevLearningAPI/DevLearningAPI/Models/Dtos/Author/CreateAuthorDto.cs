@@ -3,9 +3,8 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace DevLearningAPI.Models.Dtos.Author;
 
-public class AuthorResponseDto
+public class CreateAuthorDto
 {
-    public Guid Id { get; init; } = Guid.NewGuid();
     public string Name { get; init; } = string.Empty;
     public string Title { get; init; } = string.Empty;
     public string Image { get; init; } = string.Empty;

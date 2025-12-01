@@ -22,7 +22,7 @@ namespace DevLearningAPI.Controllers
 		{
             try
             {
-                var categories = await _service.GetAllCategoryAsync();
+                var categories = await _service.GetAllCategoriesAsync();
 
                 if (categories.Count is 0)
                     return NotFound("Register not found!");
@@ -78,7 +78,7 @@ namespace DevLearningAPI.Controllers
                     return NotFound("Register not found!");
 
                 await _service.UpdateCategoryAsync(id, categoryRequest);
-                return Ok("Succesful!");
+                return NoContent();
             }
             catch(Exception ex)
             {

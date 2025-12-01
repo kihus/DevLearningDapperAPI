@@ -15,7 +15,7 @@ public class CategoryService : ICategoryService
 		_repository = repository;
 	}
 
-	public async Task<List<CategoryResponseDto>> GetAllCategoryAsync()
+	public async Task<List<CategoryResponseDto>> GetAllCategoriesAsync()
 	{
 		return await _repository.GetAllCategoriesAsync();
 	}
