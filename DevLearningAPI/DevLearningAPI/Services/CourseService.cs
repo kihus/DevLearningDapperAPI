@@ -1,6 +1,5 @@
 ﻿using DevLearningAPI.Models;
 using DevLearningAPI.Models.Dtos.Course;
-using DevLearningAPI.Repositories;
 using DevLearningAPI.Repositories.Interfaces;
 using DevLearningAPI.Services.Interfaces;
 

@@ -2,9 +2,9 @@
 {
     public class CareerItemResponseDto
     {
-        public string CareerName { get; init; } = string.Empty;
+        public Guid CareerName { get; init; } = Guid.NewGuid();
 
-        public string CourseName { get; init; } = string.Empty;
+        public Guid CourseName { get; init; } = Guid.NewGuid();
 
         public string Title { get; init; } = string.Empty;
 

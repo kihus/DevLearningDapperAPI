@@ -1,11 +1,21 @@
 ﻿namespace DevLearningAPI.Models;
 
-public class CareerItem(Guid careerId, Guid courseId, string title, string description, int order)
+public class CareerItem(
+    Guid careerId, 
+    Guid courseId, 
+    string title, 
+    string description, 
+    int order
+    )
 {
-    public int CareerId { get; set; }
-    public int CourseId { get; set; }
-    public string Title { get; set; }
-    public string MyProperty { get; set; }
-    public int Order { get; set; }
-    public string Description { get; set; }
+
+    public Guid CareerId { get; private set; } = careerId;
+
+    public Guid CourseId { get; private set; } = courseId;
+
+    public string Title { get; private set; } = title;
+
+    public string Description { get; private set; } = description;
+
+    public int Order { get; private set; } = order;
 }

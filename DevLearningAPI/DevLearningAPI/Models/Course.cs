@@ -1,5 +1,4 @@
 ﻿namespace DevLearningAPI.Models;
-
 public class Course(
 	string tag, 
 	string title, 

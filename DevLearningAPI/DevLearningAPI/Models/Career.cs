@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace DevLearningAPI.Models;
+﻿namespace DevLearningAPI.Models;
 
 public class Career(
     string title, 

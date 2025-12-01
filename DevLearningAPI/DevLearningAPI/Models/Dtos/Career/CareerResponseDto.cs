@@ -17,5 +17,7 @@
         public bool Featured { get; init; } = false;
 
         public string Tags { get; init; } = string.Empty;
+
+        public List<ItemsResponseDto> Items { get; init; } = new List<ItemsResponseDto>();
     }
 }
