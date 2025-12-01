@@ -113,7 +113,7 @@ namespace DevLearningAPI.Controllers
 
                 if (await _service.SelectAuthorByCourseAsync(id))
 				{
-					return BadRequest();
+					return BadRequest("Não foi possível inutilizar o autor: vínculo entre autor e curso já existe.");
 				}
 
 				await _service.UpdateTypeAuthorAsync(id);

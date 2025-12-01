@@ -48,10 +48,6 @@ public class StudentService : IStudentService
         return await _repository.DeleteStudentAsync(studentId);
     }
 
-
-
-
-
     public async Task<StudentResponseDto?> GetStudentByIdAsync(Guid studentId)
     {
         return await _repository.GetStudentByIdAsync(studentId);

@@ -109,7 +109,7 @@ namespace DevLearningAPI.Controllers
                 if (await _service.GetCourseByIdAsync(id) is null)
                     return NotFound("Register not found!");
 
-				await _service.ActiveCourseAsync(id);
+                await _service.ActiveCourseAsync(id);
 				return NoContent();
             }
 			catch (Exception ex)
@@ -126,7 +126,13 @@ namespace DevLearningAPI.Controllers
 				if (await _service.GetCourseByIdAsync(id) is null)
 					return NotFound("Register not found!");
 
-				await _service.DeleteCourseAsync(id);
+
+                if (await _service.SelectCourseByStudentAsync(id))
+                {
+                    return BadRequest("Não foi possível inutilizar o curso: vínculo entre aluno e curso já existe.");
+                }
+
+                await _service.DeleteCourseAsync(id);
 				return NoContent();
 			}
 			catch (Exception ex)

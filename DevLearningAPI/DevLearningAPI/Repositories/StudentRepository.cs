@@ -100,11 +100,6 @@ public class StudentRepository : IStudentRepository
         }
     }
 
-
-
-
-
-
     public async Task<StudentResponseDto?> GetStudentByIdAsync(Guid studentId)
     {
         var sql = @"SELECT Id, Name, Email, Document, Phone, Birthdate, CreateDate

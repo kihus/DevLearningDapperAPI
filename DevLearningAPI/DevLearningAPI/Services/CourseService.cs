@@ -1,4 +1,5 @@
 ﻿using DevLearningAPI.Models;
+using DevLearningAPI.Models.Dtos.Author;
 using DevLearningAPI.Models.Dtos.Course;
 using DevLearningAPI.Repositories.Interfaces;
 using DevLearningAPI.Services.Interfaces;
@@ -96,7 +97,22 @@ public class CourseService : ICourseService
 		await _repository.UpdateCourseAsync(id, course);
 	}
 
-	public async Task DeleteCourseAsync(Guid id)
+    public async Task<bool> SelectCourseByStudentAsync(Guid courseId)
+	{
+        var course = await _repository.SelectCourseByStudentAsync(courseId);
+
+        if (course.Quantidade > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
+    public async Task DeleteCourseAsync(Guid id)
 	{
 		await _repository.DeleteCourseAsync(id);
 	}

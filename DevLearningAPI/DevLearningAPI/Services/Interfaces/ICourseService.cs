@@ -10,5 +10,6 @@ public interface ICourseService
 	public Task UpdateCourseAsync(Guid id, UpdateCourseDto courseDto);
 	public Task DeleteCourseAsync(Guid id);
 	public Task ActiveCourseAsync(Guid id);
-    Task<List<CourseResponseDto>> GetAllCoursesOrderedAsync();
+	public Task<bool> SelectCourseByStudentAsync(Guid courseId);
+    public Task<List<CourseResponseDto>> GetAllCoursesOrderedAsync();
 }

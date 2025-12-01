@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using DevLearningAPI.Database;
 using DevLearningAPI.Models;
+using DevLearningAPI.Models.Dtos.Author;
 using DevLearningAPI.Models.Dtos.Course;
 using DevLearningAPI.Repositories.Interfaces;
 
@@ -151,6 +152,15 @@ public class CourseRepository : ICourseRepository
         }
     }
 
+    public async Task<CourseStudentContadorDto?> SelectCourseByStudentAsync(Guid courseId)
+    {
+        var sql = @"SELECT COUNT(CourseId) AS Quantidade FROM StudentCourse WHERE CourseId = @CourseId";
+
+        using (var con = _connection.GetConnection())
+        {
+            return await con.QueryFirstOrDefaultAsync<CourseStudentContadorDto>(sql, new { courseId });
+        }
+    }
 
     public async Task ActiveCourseAsync(Guid id)
     {
@@ -191,5 +201,7 @@ public class CourseRepository : ICourseRepository
             return (await con.QueryAsync<CourseResponseDto>(sql)).ToList();
         }
     }
+
+
 
 }
