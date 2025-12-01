@@ -5,7 +5,7 @@ namespace DevLearningAPI.Models.Dtos.StudantCourse
 {
     public class StudentCourseResponseDto
     {
-        public Guid StudentId { get; set; }
+        public Guid StuId { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public string Document { get; set; }
