@@ -1,5 +1,5 @@
 
-﻿using Dapper;
+using Dapper;
 using DevLearningAPI.Database;
 using DevLearningAPI.Models;
 using DevLearningAPI.Models.Dtos.Course;
@@ -44,31 +44,31 @@ namespace DevLearningAPI.Repositories
             {
                 var studentDictionary = new Dictionary<Guid, StudentCourseResponseDto>();
 
-               await con.QueryAsync<StudentCourseResponseDto, StudentCourse, CourseResponseDto, StudentCourseResponseDto>(
-                    sql,
-                    (student, studentCourse, course) =>
-                    {
-                        if (!studentDictionary.TryGetValue(student.StuId, out var studentEntry))  //studentEntry recebe o valor do dicionario se a chave ja existir
-                        {
-                            studentEntry = student;
-                            studentDictionary.Add(studentEntry.StudentId, studentEntry);
-                        }
+                await con.QueryAsync<StudentCourseResponseDto, StudentCourse, CourseResponseDto, StudentCourseResponseDto>(
+                     sql,
+                     (student, studentCourse, course) =>
+                     {
+                         if (!studentDictionary.TryGetValue(student.StuId, out var studentEntry))  //studentEntry recebe o valor do dicionario se a chave ja existir
+                         {
+                             studentEntry = student;
+                             studentDictionary.Add(studentEntry.StuId, studentEntry);
+                         }
 
-                        var courseWithRelation = new CourseWithRelationDto
-                        {
-                            Course = course,
-                            Progress = GetProgressStudentCourseAsync(student.StuId, course.Id).Result,
-                            Favorite = studentCourse.Favorite,
-                            StartDate = studentCourse.StartDate,
-                            LastUpdateDate = studentCourse.RelationLastUpdateDate
-                        };
+                         var courseWithRelation = new CourseWithRelationDto
+                         {
+                             Course = course,
+                             Progress = GetProgressStudentCourseAsync(student.StuId, course.Id).Result,
+                             Favorite = studentCourse.Favorite,
+                             StartDate = studentCourse.StartDate,
+                             LastUpdateDate = studentCourse.RelationLastUpdateDate
+                         };
 
-                        studentEntry.Courses.Add(courseWithRelation);
+                         studentEntry.Courses.Add(courseWithRelation);
 
-                        return studentEntry;
-                    },
-                    splitOn: "StuId,Progress,Id"
-                );
+                         return studentEntry;
+                     },
+                     splitOn: "StuId,Progress,Id"
+                 );
                 return studentDictionary.Values.ToList();
             }
         }
@@ -85,8 +85,8 @@ namespace DevLearningAPI.Repositories
 
                 await con.ExecuteAsync(sql, new
                 {
-                    StudentId = studentCourse.StudentId,
-                    CourseId = studentCourse.CourseId,
+                    studentCourse.StudentId,
+                    studentCourse.CourseId,
                     studentCourse.Progress,
                     studentCourse.Favorite,
                     StartDate = DateTime.Now
@@ -118,22 +118,8 @@ namespace DevLearningAPI.Repositories
             }
         }
 
-        public async Task<byte?> UpdateCourseProgressAsync(Guid studentId, Guid courseId, int minutesWatched)
+        public async Task UpdateCourseProgressAsync(Guid studentId, Guid courseId, int minutesWatched, byte progress)
         {
-            var duration = await GetCourseDurationInMinutesAsync(courseId);
-            if (duration == null)
-                return null;
-
-            var existsRelationShip = await GetProgressStudentCourseAsync(studentId, courseId);
-            if (existsRelationShip == null)
-                return null;
-
-            double percent = (minutesWatched / (double)duration) * 100;
-
-            if (percent > 100)
-                percent = 100;
-
-            byte progress = (byte)percent;
 
             var sql = @"UPDATE StudentCourse 
                         SET Progress = @Progress, 
@@ -145,7 +131,6 @@ namespace DevLearningAPI.Repositories
             {
                 await con.ExecuteAsync(sql, new { Progress = progress, StudentId = studentId, CourseId = courseId });
             }
-            return progress;
         }
 
 

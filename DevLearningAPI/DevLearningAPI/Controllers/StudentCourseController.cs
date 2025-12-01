@@ -37,12 +37,12 @@ namespace DevLearningAPI.Controllers
         }
 
         [HttpPost("students/{studentId:guid}/courses/{courseId:guid}")]
-        public async Task<ActionResult> CreateStudentCourseAsync(Guid studentId, Guid courseId)
+        public async Task<ActionResult> CreateStudentCourseAsync(CreateStudantCourseDto studentCourse,Guid studentId, Guid courseId)
         {
             try
             {
 
-                await _service.CreateStudentCourseAsync(studentId, courseId);
+                await _service.CreateStudentCourseAsync(studentCourse,studentId, courseId);
                 return Created("Student enrolled with sucess!", null);
             }
             catch (Exception ex)
@@ -56,16 +56,10 @@ namespace DevLearningAPI.Controllers
         {
             try
             {
-                var updatedProgress = await _service.UpdateCourseProgressAsync(studentId,
-                                                    courseId, minutesWatched);
-                if (updatedProgress == null)
-                    return NotFound(new { message = "Student-Course relationship not found." });
+                if (!await _service.GetRelationStudentCourseAsync(studentId, courseId))
+                    return BadRequest();
 
-                return Ok(new
-                {
-                    message = "Course progress updated successfully!",
-                    progress = updatedProgress
-                });
+                return Ok();
 
             }
             catch (Exception)
@@ -80,15 +74,16 @@ namespace DevLearningAPI.Controllers
         {
             try
             {
+
+                var existsRelationShip = await _service.GetRelationStudentCourseAsync(studentId, courseId);
+                if (!await _service.GetRelationStudentCourseAsync(studentId, courseId))
+                    return BadRequest();
+
                 var newValue = await _service.UpdateFavoriteStudentCourse(studentId, courseId);
                 if (newValue == null)
                     return NotFound(new { message = "Student-Course relationship not found." });
 
-                return Ok(new
-                {
-                    message = "Favorite status updated successfully!",
-                    favorite = newValue
-                });
+                return NoContent();
 
             }
             catch (Exception)
