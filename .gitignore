@@ -131,6 +131,7 @@ $RECYCLE.BIN/
 .DS_Store
 
 _NCrunch*
+/.vs/DevLearningDapperAPI.slnx/v18
 /DevLearningAPI/.vs/DevLearningAPI.slnx
 /DevLearningAPI/.vs/DevLearningAPI.slnx/FileContentIndex
 
