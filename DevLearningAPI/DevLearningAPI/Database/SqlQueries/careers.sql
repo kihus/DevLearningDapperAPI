@@ -62,7 +62,6 @@ RIGHT JOIN Career ca ON ca.Id = ci.CareerId
 LEFT JOIN Course co ON co.Id = ci.CourseId
 ORDER BY ci.[Order] ASC
 
-
 SELECT * FROM Career;
 
 SELECT * FROM Author;
@@ -74,8 +73,3 @@ SELECT * FROM Course;
 select * from Student;
 
 
-SELECT Id,Title,Summary,Url,DurationInMinutes,Active,Featured,Tags 
-                                                            FROM Career
-
-DELETE FROM Career
-WHERE Id = '099b9462-6b5c-4d80-81b1-b37992b86ebe';

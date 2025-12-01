@@ -3,13 +3,13 @@
 public class CareerItem(Guid careerId, Guid courseId, string title, string description, int order)
 {
 
-    public Guid CareerId { get; set; } = careerId;
+    public Guid CareerId { get; private set; } = careerId;
 
-    public Guid CourseId { get; set; } = courseId;
+    public Guid CourseId { get; private set; } = courseId;
 
-    public string Title { get; set; } = title;
+    public string Title { get; private set; } = title;
 
-    public string Description { get; set; } = description;
+    public string Description { get; private set; } = description;
 
-    public int Order { get; set; } = order;
+    public int Order { get; private set; } = order;
 }

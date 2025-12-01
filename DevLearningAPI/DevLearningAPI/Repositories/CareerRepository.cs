@@ -1,10 +1,11 @@
-﻿using DevLearningAPI.Database;
-using DevLearningAPI.Repositories.Interfaces;
-using Dapper;
-using Microsoft.Data.SqlClient;
+﻿using Dapper;
+using DevLearningAPI.Database;
 using DevLearningAPI.Models;
 using DevLearningAPI.Models.Dtos.Career;
+using DevLearningAPI.Repositories.Interfaces;
+using Microsoft.Data.SqlClient;
 using Microsoft.IdentityModel.Tokens;
+using System.Data;
 
 namespace DevLearningAPI.Repositories
 {
@@ -48,10 +49,46 @@ namespace DevLearningAPI.Repositories
         {
             using (var con = _connection.GetConnection())
             {
-                var sql = @"SELECT Id,Title,Summary,Url,DurationInMinutes,Active,Featured,Tags 
-                                         FROM Career;";
 
-                return (await con.QueryAsync<CareerResponseDto>(sql)).ToList();
+                var sql = @"SELECT CA.Id,CA.Title,CA.Summary,CA.Url,CA.DurationInMinutes,CA.Active,CA.Featured,CA.Tags,
+                                   CO.Id,CO.Title AS CourseTitle,
+                                   CI.Title,CI.Description, CI.[Order]
+                            FROM Career CA
+                            LEFT JOIN CareerItem CI ON CI.CareerId = CA.Id
+                            LEFT JOIN Course CO ON CO.Id = CI.CourseId
+                            ORDER BY CI.[Order];";
+
+                var careerDictionary = new Dictionary<Guid, CareerResponseDto>();
+
+                await con.QueryAsync<CareerResponseDto, ItemsResponseDto, CareerResponseDto>(sql,
+                                                                                                (career, item) => 
+                                                                                                {
+                                                                                                
+                                                                                                    if (!careerDictionary.TryGetValue(career.Id, out var existingCareer))
+                                                                                                
+                                                                                                    {
+                                                                                                
+                                                                                                        careerDictionary.Add(career.Id, career);
+                                                                                                
+                                                                                                        existingCareer = career;
+                                                                                                
+                                                                                                    }
+                                                                                                
+                                                                                                
+                                                                                                
+                                                                                                    if (item != null)
+                                                                                                
+                                                                                                    {
+                                                                                                
+                                                                                                        existingCareer.Items.Add(item);
+                                                                                                
+                                                                                                    }
+                                                                                                    return existingCareer; 
+                                                                                                },
+                                                                                                splitOn: "Id"
+                                                                                            );
+
+                return careerDictionary.Values.ToList();
             }
 
         }
@@ -59,11 +96,47 @@ namespace DevLearningAPI.Repositories
         {
             using (var con = _connection.GetConnection())
             {
-                var sql = @"SELECT Id,Title,Summary,Url,DurationInMinutes,Active,Featured,Tags 
-                                         FROM Career
-                                         WHERE Id = @CareerId;";
+                var sql = @"SELECT CA.Id,CA.Title,CA.Summary,CA.Url,CA.DurationInMinutes,CA.Active,CA.Featured,CA.Tags,
+                                   CO.Id,CO.Title AS CourseTitle,
+                                   CI.Title,CI.Description,CI.[Order]
+                            FROM Career CA
+                            LEFT JOIN CareerItem CI ON CI.CareerId = CA.Id
+                            LEFT JOIN Course CO ON CO.Id = CI.CourseId
+                            WHERE CA.Id = @CareerId
+                            ORDER BY CI.[Order];";
 
-                return await con.QueryFirstOrDefaultAsync<CareerResponseDto>(sql, new { CareerId = careerId });
+                var careerDictionary = new Dictionary<Guid, CareerResponseDto>();
+
+                await con.QueryAsync<CareerResponseDto, ItemsResponseDto, CareerResponseDto>(sql,
+                                                                                                (career, item) =>
+                                                                                                {
+
+                                                                                                    if (!careerDictionary.TryGetValue(career.Id, out var existingCareer))
+
+                                                                                                    {
+
+                                                                                                        careerDictionary.Add(career.Id, career);
+
+                                                                                                        existingCareer = career;
+
+                                                                                                    }
+
+
+
+                                                                                                    if (item != null)
+
+                                                                                                    {
+
+                                                                                                        existingCareer.Items.Add(item);
+
+                                                                                                    }
+                                                                                                    return existingCareer;
+                                                                                                },
+                                                                                                param: new { CareerId = careerId },
+                                                                                                splitOn: "Id"
+                                                                                            );
+
+                return careerDictionary.Values.FirstOrDefault();
             }
 
         }

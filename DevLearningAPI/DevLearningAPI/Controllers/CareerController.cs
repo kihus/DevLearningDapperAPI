@@ -83,7 +83,7 @@ namespace DevLearningAPI.Controllers
                     return NotFound("Register not found!");
 
                 await _careerService.UpdateCareerAsync(careerId, careerRequest);
-                return Ok();
+                return NoContent();
             }
             catch (Exception ex)
             {
@@ -91,7 +91,7 @@ namespace DevLearningAPI.Controllers
             }
         }
 
-        [HttpDelete("{careerId}")]
+        [HttpPut("ChangeActive/{careerId}")]
         public async Task<ActionResult> ChangeActiveAsync(Guid careerId)
         {
             try
@@ -100,7 +100,7 @@ namespace DevLearningAPI.Controllers
                     return NotFound("Register not found!");
 
                 await _careerService.ChangeActiveAsync(careerId);
-                return Ok();
+                return NoContent();
             }
             catch (Exception ex)
             {
