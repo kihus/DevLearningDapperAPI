@@ -8,7 +8,6 @@ public class CareerItem(
     int order
     )
 {
-
     public Guid CareerId { get; private set; } = careerId;
 
     public Guid CourseId { get; private set; } = courseId;

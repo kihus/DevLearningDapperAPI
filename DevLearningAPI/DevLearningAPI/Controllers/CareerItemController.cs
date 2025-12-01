@@ -61,7 +61,7 @@ namespace DevLearningAPI.Controllers
 
 
 
-                await _careerItemService.UpdateCareerItemAsync(careerItem);
+                await _careerItemService.UpdateCareerItemAsync(careerItem.CareerId, careerItem.CourseId, careerItem);
                 return NoContent();
             }
             catch (Exception ex)

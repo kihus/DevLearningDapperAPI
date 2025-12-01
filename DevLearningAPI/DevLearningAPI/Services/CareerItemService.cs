@@ -45,16 +45,26 @@ namespace DevLearningAPI.Services
             return await _careerItemRepository.GetCareerItemByCareerCourseIdAsync(careerId,courseId);
         }
 
-        public async Task UpdateCareerItemAsync(UpdateCareerItemDto careerItem)
+        public async Task UpdateCareerItemAsync(Guid idCareer, Guid idCourse, UpdateCareerItemDto careerItemRequest)
         {
+            var careerItemCareer = await _careerItemRepository.GetCareerItemByCareerIdAsync(idCareer);
+            var careerItemCourse = await _careerItemRepository.GetCareerItemByCourseIdAsync(idCourse);
+            var careerItem = await _careerItemRepository.GetCareerItemByCareerCourseIdAsync(idCareer, idCourse);
+
             var newCareerItem = new CareerItem(
-                                                careerItem.CareerId,
-                                                careerItem.CourseId,
-                                                careerItem.Title,
-                                                careerItem.Description,
-                                                careerItem.Order
+                                                careerItemRequest.CareerId,
+                                                careerItemRequest.CourseId,
+                           string.IsNullOrEmpty(careerItemRequest.Title) 
+                                              ? careerItem.Title 
+                                              : careerItemRequest.Title,
+                           string.IsNullOrEmpty(careerItemRequest.Description) 
+                                              ? careerItem.Description 
+                                              : careerItemRequest.Description,
+                                                careerItemRequest.Order is 0 
+                                              ? careerItem.Order 
+                                              : careerItemRequest.Order
                                               );
-            await _careerItemRepository.UpdateCareerItemAsync(newCareerItem);
+            await _careerItemRepository.UpdateCareerItemAsync(idCareer, idCourse, newCareerItem);
         }
 
         public async Task DeleteAllCareerItemByCareerIdAsync(Guid careerId)

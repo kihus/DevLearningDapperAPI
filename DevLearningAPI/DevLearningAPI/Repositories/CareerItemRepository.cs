@@ -74,7 +74,7 @@ public class CareerItemRepository : ICareerItemRepository
         }
     }
 
-    public async Task UpdateCareerItemAsync(CareerItem careerItem)
+    public async Task UpdateCareerItemAsync(Guid idCareer, Guid idCourse, CareerItem careerItemRequest)
     {
         using (var con = _connecton.GetConnection())
         {
@@ -87,11 +87,11 @@ public class CareerItemRepository : ICareerItemRepository
 
             await con.ExecuteAsync(sql, new
             {
-                CareerId = careerItem.CareerId,
-                CourseId = careerItem.CourseId,
-                Title = careerItem.Title,
-                Description = careerItem.Description,
-                Order = careerItem.Order
+                CareerId = careerItemRequest.CareerId,
+                CourseId = careerItemRequest.CourseId,
+                Title = careerItemRequest.Title,
+                Description = careerItemRequest.Description,
+                Order = careerItemRequest.Order
             }
                                    );
         }

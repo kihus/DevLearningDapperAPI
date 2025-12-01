@@ -42,11 +42,21 @@ public class CategoryService : ICategoryService
 		var category = await _repository.GetCategoryByIdAsync(id);
 
 		var newCategory = new Category(
-			string.IsNullOrEmpty(categoryRequest.Title) ? category.Title : categoryRequest.Title,
-            string.IsNullOrEmpty(categoryRequest.Url) ? category.Url : categoryRequest.Url,
-            string.IsNullOrEmpty(categoryRequest.Summary) ? category.Summary : categoryRequest.Summary,
-								 categoryRequest.Order is 0 ? category.Order : categoryRequest.Order,
-			string.IsNullOrEmpty(categoryRequest.Description) ? category.Description : categoryRequest.Description,
+			string.IsNullOrEmpty(categoryRequest.Title) 
+							   ? category.Title 
+							   : categoryRequest.Title,
+            string.IsNullOrEmpty(categoryRequest.Url) 
+							   ? category.Url 
+							   : categoryRequest.Url,
+            string.IsNullOrEmpty(categoryRequest.Summary) 
+							   ? category.Summary 
+							   : categoryRequest.Summary,
+								 categoryRequest.Order is 0 
+							   ? category.Order 
+							   : categoryRequest.Order,
+			string.IsNullOrEmpty(categoryRequest.Description) 
+							   ? category.Description 
+							   : categoryRequest.Description,
 								 categoryRequest.Featured
 									  );
 

@@ -1,4 +1,3 @@
-/*
 INSERT INTO [Author] ([Id], [Name], [Title], [Image], [Bio], [Url], [Email], [Type])
 VALUES
     (NEWID(), 'Maria Silva', 'Desenvolvedora Sênior', 'http://img.com/maria.jpg', 'Especialista em C# e .NET Core.', 'http://linkedin.com/maria', 'maria@dev.com', 1),
@@ -54,7 +53,7 @@ VALUES
     ('3B06CC60-A96A-47EA-B3B4-6E78DDFD54D8', '5A41927D-E029-4C40-8650-259C7A348707', 0, 0, '2025-11-28', GETDATE()),
     ('B397ADE5-B2DE-4AFE-8C9D-235BA46F5843', 'A31C4E92-6A44-4A08-9EFE-15D6F824ED7A', 75, 1, '2025-10-10', '2025-11-05');
 
-*/
+
 
 SELECT * 
 FROM CareerItem ci
@@ -62,14 +61,5 @@ RIGHT JOIN Career ca ON ca.Id = ci.CareerId
 LEFT JOIN Course co ON co.Id = ci.CourseId
 ORDER BY ci.[Order] ASC
 
-SELECT * FROM Career;
-
-SELECT * FROM Author;
-
-SELECT * FROM Category;
-
-SELECT * FROM Course;
-
-select * from Student;
 
 
