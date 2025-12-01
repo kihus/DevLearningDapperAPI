@@ -51,7 +51,7 @@ namespace DevLearningAPI.Controllers
             }
         }
 
-        [HttpPut("update-progress/students/{studentId:guid}/courses/{courseId:guid}/progress/{minutesWatched:int}")]
+        [HttpPut("update-progress/students/{studentId}/courses/{courseId}/progress/{minutesWatched}")]
         public async Task<ActionResult> UpdateCourseProgressAsync(Guid studentId, Guid courseId, int minutesWatched)
         {
             try
@@ -59,7 +59,9 @@ namespace DevLearningAPI.Controllers
                 if (!await _service.GetRelationStudentCourseAsync(studentId, courseId))
                     return BadRequest();
 
+                await _service.UpdateCourseProgressAsync(studentId, courseId, minutesWatched);
                 return Ok();
+
 
             }
             catch (Exception)
