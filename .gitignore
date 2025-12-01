@@ -139,3 +139,13 @@ _NCrunch*
 /DevLearningAPI/DevLearningAPI/obj
 /.vs/DevLearningAPI.slnx/v18
 /.vs/slnx.sqlite
+/DevLearningAPI/.vs/DevLearningAPI/CopilotIndices/18.0.934.24903/CodeChunks.db
+/DevLearningAPI/.vs/DevLearningAPI/CopilotIndices/18.0.934.24903/CodeChunks.db-wal
+/DevLearningAPI/.vs/DevLearningAPI/CopilotIndices/18.0.934.24903/CodeChunks.db-shm
+/DevLearningAPI/.vs/DevLearningAPI/CopilotIndices/18.0.934.24903/SemanticSymbols.db
+/DevLearningAPI/.vs/DevLearningAPI/CopilotIndices/18.0.934.24903/SemanticSymbols.db-shm
+/DevLearningAPI/.vs/DevLearningAPI/CopilotIndices/18.0.934.24903/SemanticSymbols.db-wal
+*.bin
+/ScriptsDevLearning/.vs/ScriptsDevLearning/v17/DocumentLayout.json
+/ScriptsDevLearning/.vs/ScriptsDevLearning/v17/DocumentLayout.backup.json
+/ScriptsDevLearning/.vs/ScriptsDevLearning/v17/.suo
