@@ -1,4 +1,5 @@
 ﻿using DevLearningAPI.Database;
+using DevLearningAPI.Models;
 using DevLearningAPI.Models.Dtos.Student;
 using DevLearningAPI.Services;
 using Microsoft.AspNetCore.Http;
@@ -55,6 +56,9 @@ namespace DevLearningAPI.Controllers
         {
             try
             {
+                if (await _service.GetStudentByIdAsync(id) is null)
+                    return NotFound("Student not found!");
+
                 await _service.UpdateEmailStudentAsync(id, dtoEmail);
                 return Ok("Student email updated with sucess!");
             }
@@ -68,6 +72,9 @@ namespace DevLearningAPI.Controllers
         {
             try
             {
+                if (await _service.GetStudentByIdAsync(id) is null)
+                    return NotFound("Student not found!");
+
                 await _service.UpdatePhoneStudentAsync(id, dtoPhone);
                 return Ok("Student phone updated with sucess!");
             }
@@ -82,6 +89,9 @@ namespace DevLearningAPI.Controllers
         {
             try
             {
+                if (await _service.GetStudentByIdAsync(id) is null)
+                    return NotFound("Student not found!");
+
                 await _service.DeleteStudentAsync(id);
                 return NoContent();
             }
@@ -90,11 +100,6 @@ namespace DevLearningAPI.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
-
-
-
-
-
 
         [HttpGet("{id}")]
         public async Task<ActionResult<StudentResponseDto>> GetStudentByIdAsync(Guid id)

@@ -16,7 +16,8 @@ public class StudentService : IStudentService
 
     public async Task<List<StudentResponseDto>> GetAllStudentsAsync()
     {
-        return await _repository.GetAllStudentsAsync();
+        var students = await _repository.GetAllStudentsAsync();
+        return students.OrderBy(x => x.Name).ToList();
     }
 
     public async Task CreateStudentAsync(CreateStudentDto studentCreate)

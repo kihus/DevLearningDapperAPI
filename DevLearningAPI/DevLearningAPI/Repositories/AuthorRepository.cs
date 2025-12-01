@@ -15,7 +15,7 @@ public class AuthorRepository : IAuthorRepository
 		_connection = connection;
 	}
 
-	public async Task<List<AuthorResponseDto>> GetAllAuthorsAsync()
+	public async Task<List<AuthorResponseDto>> GetAllActiveAuthorsAsync()
 	{
 		var sql = "SELECT [Id], [Name], [Title], [Image], [Bio], [Url], [Email], [Type] FROM Author WHERE [Type] = 1";
 
@@ -25,7 +25,17 @@ public class AuthorRepository : IAuthorRepository
 		}
 	}
 
-	public async Task<AuthorResponseDto> GetAuthorByIdAsync(Guid id)
+    public async Task<List<AuthorResponseDto>> GetAllAuthorsAsync()
+    {
+        var sql = "SELECT [Id], [Name], [Title], [Image], [Bio], [Url], [Email], [Type] FROM Author";
+
+        using (var con = _connection.GetConnection())
+        {
+            return (await con.QueryAsync<AuthorResponseDto>(sql)).ToList();
+        }
+    }
+
+    public async Task<AuthorResponseDto> GetAuthorByIdAsync(Guid id)
 	{
 		var sql = "SELECT [Id], [Name], [Title], [Image], [Bio], [Url], [Email], [Type] FROM Author WHERE Id = @Id";
 

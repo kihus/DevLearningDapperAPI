@@ -4,6 +4,7 @@ namespace DevLearningAPI.Services.Interfaces;
 
 public interface IAuthorService
 {
+    Task<List<AuthorResponseDto>> GetAllActiveAuthorsAsync();
     Task<List<AuthorResponseDto>> GetAllAuthorsAsync();
     Task<AuthorResponseDto> GetAuthorByIdAsync(Guid id);
     Task CreateAuthorAsync(CreateAuthorDto author);
