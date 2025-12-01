@@ -101,3 +101,4 @@ INSERT INTO [StudentCourse] ([CourseId], [StudentId], [Progress], [Favorite], [S
 ('C0055555-5555-5555-5555-555555555555', 'A5555555-5555-5555-5555-555555555555', 75, 1, GETDATE(), GETDATE());
 GO
 
+
