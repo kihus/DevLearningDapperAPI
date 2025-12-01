@@ -16,13 +16,18 @@ public class CourseService : ICourseService
 
 	public async Task<List<CourseResponseDto>> GetAllCoursesAsync()
 	{
-		var courses = await _repository.GetAllCoursesAsync();
+		var courses = await _repository.GetAllActivesCoursesAsync();
         return courses.OrderBy(x => x.Title).ToList();
 	}
 
 	public async Task<CourseResponseDto?> GetCourseByIdAsync(Guid id)
 	{
 		return await _repository.GetCourseByIdAsync(id);
+	}
+
+	public async Task<List<CourseResponseDto>> GetAllCoursesOrderedAsync()
+	{
+		return await _repository.GetAllCoursesOrderedAsync();
 	}
 
 	public async Task CreateCourseAsync(CreateCourseDto courseDto)
@@ -43,6 +48,11 @@ public class CourseService : ICourseService
 			);
 
 		await _repository.CreateCourseAsync(course);
+	}
+
+	public async Task ActiveCourseAsync(Guid id)
+	{
+		await _repository.ActiveCourseAsync(id);
 	}
 
 	public async Task UpdateCourseAsync(Guid id, UpdateCourseDto courseDto)
@@ -90,16 +100,4 @@ public class CourseService : ICourseService
 	{
 		await _repository.DeleteCourseAsync(id);
 	}
-
-
-
-
-
-
-
-	public async Task<List<CourseResponseDto>> GetAllCoursesOrderedAsync()
-	{
-		return await _repository.GetAllCoursesOrderedAsync();
-	}
-
 }

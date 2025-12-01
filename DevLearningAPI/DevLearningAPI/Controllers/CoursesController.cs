@@ -1,7 +1,5 @@
 ﻿using DevLearningAPI.Models.Dtos.Course;
-using DevLearningAPI.Services;
 using DevLearningAPI.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevLearningAPI.Controllers
@@ -17,7 +15,25 @@ namespace DevLearningAPI.Controllers
 			_service = service;
 		}
 
-		[HttpGet]
+        [HttpGet]
+        public async Task<ActionResult<List<CourseResponseDto>>> GetAllCoursesOrdered()
+        {
+            try
+            {
+                var courses = await _service.GetAllCoursesOrderedAsync();
+
+                if (courses.Count is 0)
+                    return NotFound("Register not found!");
+
+                return Ok(courses);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
+		[HttpGet("all")]
 		public async Task<ActionResult<List<CourseResponseDto>>> GetAllCourses()
 		{
 			try
@@ -35,7 +51,8 @@ namespace DevLearningAPI.Controllers
 			}
 		}
 
-		[HttpGet("{id}")]
+
+        [HttpGet("{id}")]
 		public async Task<ActionResult<CourseResponseDto>> GetCourseById(Guid id)
 		{
 			try
@@ -84,6 +101,23 @@ namespace DevLearningAPI.Controllers
 			}
 		}
 
+		[HttpPut("active/{id}")]
+		public async Task<ActionResult> ActiveCourse(Guid id)
+		{
+			try
+			{
+                if (await _service.GetCourseByIdAsync(id) is null)
+                    return NotFound("Register not found!");
+
+				await _service.ActiveCourseAsync(id);
+				return NoContent();
+            }
+			catch (Exception ex)
+			{
+				return Problem(ex.Message);
+			}
+		}
+
 		[HttpDelete("{id}")]
 		public async Task<ActionResult> DeleteCourse(Guid id)
 		{
@@ -100,29 +134,5 @@ namespace DevLearningAPI.Controllers
 				return Problem(ex.Message);
 			}
 		}
-
-
-
-
-
-
-		[HttpGet("ordered")]
-		public async Task<ActionResult<List<CourseResponseDto>>> GetAllCoursesOrdered()
-		{
-			try
-			{
-				var courses = await _service.GetAllCoursesOrderedAsync();
-
-				if (courses.Count is 0)
-					return NotFound("Register not found!");
-
-				return Ok(courses);
-			}
-			catch (Exception ex)
-			{
-				return Problem(ex.Message);
-			}
-		}
-
 	}
 }

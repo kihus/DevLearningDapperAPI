@@ -60,9 +60,7 @@ namespace DevLearningAPI.Controllers
                     return BadRequest();
 
                 await _service.UpdateCourseProgressAsync(studentId, courseId, minutesWatched);
-                return Ok();
-
-
+                return NoContent();
             }
             catch (Exception)
             {

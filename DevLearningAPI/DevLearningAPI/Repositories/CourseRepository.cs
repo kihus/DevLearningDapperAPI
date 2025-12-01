@@ -8,16 +8,16 @@ namespace DevLearningAPI.Repositories;
 
 public class CourseRepository : ICourseRepository
 {
-	private readonly DbConnectionFactory _connection;
+    private readonly DbConnectionFactory _connection;
 
-	public CourseRepository(DbConnectionFactory connection)
-	{
-		_connection = connection;
-	}
+    public CourseRepository(DbConnectionFactory connection)
+    {
+        _connection = connection;
+    }
 
-	public async Task<List<CourseResponseDto>> GetAllCoursesAsync()
-	{
-		var sql = @"SELECT co.Id, co.Tag, co.Title, co.Summary, co.Url, co.DurationInMinutes, co.Level, 
+    public async Task<List<CourseResponseDto>> GetAllActivesCoursesAsync()
+    {
+        var sql = @"SELECT co.Id, co.Tag, co.Title, co.Summary, co.Url, co.DurationInMinutes, co.Level, 
                            co.CreateDate, co.LastUpdateDate, co.Active, co.Free, co.Featured, co.Tags,      
 						   a.[Name] AS AuthorName, ca.[Title] AS CategoryName 
 					FROM Course co
@@ -25,17 +25,17 @@ public class CourseRepository : ICourseRepository
 					ON co.AuthorId = a.Id
 					JOIN Category ca
 					ON co.CategoryId = ca.Id
-					WHERE co.Active = 1";
+					ORDER BY co.Title ASC";
 
-		using (var con = _connection.GetConnection())
-		{
-			return (await con.QueryAsync<CourseResponseDto>(sql)).ToList();
-		}
-	}
+        using (var con = _connection.GetConnection())
+        {
+            return (await con.QueryAsync<CourseResponseDto>(sql)).ToList();
+        }
+    }
 
-	public async Task<CourseResponseDto?> GetCourseByIdAsync(Guid id)
-	{
-		var sql = @"SELECT co.Id, co.Tag, co.Title, co.Summary, co.Url, co.DurationInMinutes, co.Level,  
+    public async Task<CourseResponseDto?> GetCourseByIdAsync(Guid id)
+    {
+        var sql = @"SELECT co.Id, co.Tag, co.Title, co.Summary, co.Url, co.DurationInMinutes, co.Level,  
                            co.CreateDate, co.LastUpdateDate, co.Active, co.Free, co.Featured, co.Tags,    
 						   a.[Name] AS AuthorName, ca.[Title] AS CategoryName 
 					FROM Course co
@@ -43,27 +43,27 @@ public class CourseRepository : ICourseRepository
 					ON co.AuthorId = a.Id
 					JOIN Category ca
 					ON co.CategoryId = ca.Id
-					WHERE co.Id = @Id AND co.Active = 1";
+					WHERE co.Id = @Id";
 
-		using (var con = _connection.GetConnection())
-		{
-			return await con.QueryFirstOrDefaultAsync<CourseResponseDto>(sql, new { id });
-		}
-	}
+        using (var con = _connection.GetConnection())
+        {
+            return await con.QueryFirstOrDefaultAsync<CourseResponseDto>(sql, new { id });
+        }
+    }
 
-	public async Task<AuthorCategoryDto> GetAuthorCategoryId(Guid id)
-	{
-		var sql = @"SELECT AuthorId, CategoryId FROM Course WHERE Id = @Id";
+    public async Task<AuthorCategoryDto> GetAuthorCategoryId(Guid id)
+    {
+        var sql = @"SELECT AuthorId, CategoryId FROM Course WHERE Id = @Id";
 
-		using (var con = _connection.GetConnection())
-		{
-			return await con.QueryFirstOrDefaultAsync<AuthorCategoryDto>(sql, new { id });
-		}
-	}
+        using (var con = _connection.GetConnection())
+        {
+            return await con.QueryFirstOrDefaultAsync<AuthorCategoryDto>(sql, new { id });
+        }
+    }
 
-	public async Task CreateCourseAsync(Course course)
-	{
-		var sql = @"INSERT INTO Course ([Id], 
+    public async Task CreateCourseAsync(Course course)
+    {
+        var sql = @"INSERT INTO Course ([Id], 
 										[Tag], 
 										[Title], 
 										[Summary], 
@@ -94,30 +94,30 @@ public class CourseRepository : ICourseRepository
 							@CategoryId,
 							@Tags)";
 
-		using (var con = _connection.GetConnection())
-		{
-			await con.ExecuteAsync(sql, new
-			{
-				course.Id,
-				course.Tag,
-				course.Title,
-				course.Summary,
-				course.Url,
-				course.Level,
-				course.DurationInMinutes,
-				course.Active,
-				course.Free,
-				course.Featured,
-				course.AuthorId,
-				course.CategoryId,
-				course.Tags
-			});
-		}
-	}
+        using (var con = _connection.GetConnection())
+        {
+            await con.ExecuteAsync(sql, new
+            {
+                course.Id,
+                course.Tag,
+                course.Title,
+                course.Summary,
+                course.Url,
+                course.Level,
+                course.DurationInMinutes,
+                course.Active,
+                course.Free,
+                course.Featured,
+                course.AuthorId,
+                course.CategoryId,
+                course.Tags
+            });
+        }
+    }
 
-	public async Task UpdateCourseAsync(Guid id, Course course)
-	{
-		var sql = @"UPDATE Course SET [Tag] = @Tag, 
+    public async Task UpdateCourseAsync(Guid id, Course course)
+    {
+        var sql = @"UPDATE Course SET [Tag] = @Tag, 
 									  [Title] = @Title, 
 									  [Summary] = @Summary, 
 								      [Url] = @Url, 
@@ -131,46 +131,53 @@ public class CourseRepository : ICourseRepository
 									  [Tags] = @Tags 
 					WHERE Id = @Id";
 
-		using (var con = _connection.GetConnection())
-		{
-			await con.ExecuteAsync(sql, new
-			{
-				course.Tag,
-				course.Title,
-				course.Summary,
-				course.Url,
-				course.Level,
-				course.DurationInMinutes,
-				course.Active,
-				course.Free,
-				course.AuthorId,
-				course.CategoryId,
-				course.Tags,
-				id
-			});
-		}
-	}
+        using (var con = _connection.GetConnection())
+        {
+            await con.ExecuteAsync(sql, new
+            {
+                course.Tag,
+                course.Title,
+                course.Summary,
+                course.Url,
+                course.Level,
+                course.DurationInMinutes,
+                course.Active,
+                course.Free,
+                course.AuthorId,
+                course.CategoryId,
+                course.Tags,
+                id
+            });
+        }
+    }
 
 
-	public async Task DeleteCourseAsync(Guid id)
-	{
-		var sql = @"DELETE FROM Course WHERE Id = @Id";
+    public async Task ActiveCourseAsync(Guid id)
+    {
+        var sql = @"UPDATE Course SET Active = 1
+                    WHERE Id = @Id";
 
-		using (var con = _connection.GetConnection())
-		{
-			await con.ExecuteAsync(sql, new { id });
-		}
-	}
+        using (var con = _connection.GetConnection())
+        {
+            await con.ExecuteAsync(sql, new { id });
+        }
+    }
 
+    public async Task DeleteCourseAsync(Guid id)
+    {
 
+        var sql = @"UPDATE Course SET Active = 0
+                    WHERE Id = @Id";
 
+        using (var con = _connection.GetConnection())
+        {
+            await con.ExecuteAsync(sql, new { id });
+        }
+    }
 
-
-
-
-	public async Task<List<CourseResponseDto>> GetAllCoursesOrderedAsync()
-	{
-		var sql = @"SELECT co.Id, co.Tag, co.Title, co.Summary, co.Url, co.DurationInMinutes, co.Level, 
+    public async Task<List<CourseResponseDto>> GetAllCoursesOrderedAsync()
+    {
+        var sql = @"SELECT co.Id, co.Tag, co.Title, co.Summary, co.Url, co.DurationInMinutes, co.Level, 
 					   co.CreateDate, co.LastUpdateDate, co.Active, co.Free, co.Featured, co.Tags,      
 					   a.[Name] AS AuthorName, ca.[Title] AS CategoryName 
 				FROM Course co
@@ -179,10 +186,10 @@ public class CourseRepository : ICourseRepository
 				WHERE co.Active = 1
 				ORDER BY co.Title ASC";
 
-		using (var con = _connection.GetConnection())
-		{
-			return (await con.QueryAsync<CourseResponseDto>(sql)).ToList();
-		}
-	}
+        using (var con = _connection.GetConnection())
+        {
+            return (await con.QueryAsync<CourseResponseDto>(sql)).ToList();
+        }
+    }
 
 }

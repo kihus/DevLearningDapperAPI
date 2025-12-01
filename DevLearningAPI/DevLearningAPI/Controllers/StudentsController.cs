@@ -60,7 +60,7 @@ namespace DevLearningAPI.Controllers
                     return NotFound("Student not found!");
 
                 await _service.UpdateEmailStudentAsync(id, dtoEmail);
-                return Ok("Student email updated with sucess!");
+                return NoContent();
             }
             catch (Exception ex)
             {
@@ -76,7 +76,7 @@ namespace DevLearningAPI.Controllers
                     return NotFound("Student not found!");
 
                 await _service.UpdatePhoneStudentAsync(id, dtoPhone);
-                return Ok("Student phone updated with sucess!");
+                return NoContent();
             }
             catch (Exception ex)
             {
