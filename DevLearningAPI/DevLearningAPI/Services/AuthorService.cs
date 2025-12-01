@@ -76,4 +76,18 @@ public class AuthorService : IAuthorService
     {
         await _repository.UpdateTypeAuthorAsync(id);
     }
+
+    public async Task<bool> SelectAuthorByCourseAsync(Guid authorId)
+    {
+        var author = await _repository.SelectAuthorByCourseAsync(authorId);
+
+        if(author.Quantidade > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    } 
 }

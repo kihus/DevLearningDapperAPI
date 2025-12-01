@@ -6,8 +6,8 @@ namespace DevLearningAPI.Models.Dtos.StudantCourse
     {
         public CourseResponseDto Course { get; init; }
         public byte Progress { get; init; }
-        public bool SCFavorite { get; init; }
+        public bool Favorite { get; init; }
         public DateTime StartDate { get; init; }
-        public DateTime CourseLastUpdateDate { get; init; }
+        public DateTime LastUpdateDate { get; init; }
     }
 }

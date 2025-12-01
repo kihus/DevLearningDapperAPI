@@ -108,8 +108,13 @@ namespace DevLearningAPI.Controllers
 		{
 			try
 			{
-				if (_service.GetAuthorByIdAsync(id) is null)
-					return NotFound("Register not found!");
+                if (_service.GetAuthorByIdAsync(id) is null)
+                    return NotFound("Register not found!");
+
+                if (await _service.SelectAuthorByCourseAsync(id))
+				{
+					return BadRequest();
+				}
 
 				await _service.UpdateTypeAuthorAsync(id);
 

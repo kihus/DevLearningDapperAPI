@@ -83,4 +83,14 @@ public class AuthorRepository : IAuthorRepository
 			await con.ExecuteAsync(sql, new { Id = id });
 		}
 	}
+
+	public async Task<ContadorAuthorDto?> SelectAuthorByCourseAsync(Guid authorId)
+	{
+		var sql = @"SELECT COUNT(Id) AS Quantidade FROM Course WHERE AuthorId = @AuthorId";
+
+		using (var con = _connection.GetConnection())
+		{
+			return await con.QueryFirstOrDefaultAsync<ContadorAuthorDto>(sql, new { authorId });	
+		}
+	}
 }

@@ -51,7 +51,7 @@ namespace DevLearningAPI.Repositories
                         if (!studentDictionary.TryGetValue(student.StuId, out var studentEntry))  //studentEntry recebe o valor do dicionario se a chave ja existir
                         {
                             studentEntry = student;
-                            studentDictionary.Add(studentEntry.StudentId, studentEntry);
+                            studentDictionary.Add(studentEntry.StuId, studentEntry);
                         }
 
                         var courseWithRelation = new CourseWithRelationDto
