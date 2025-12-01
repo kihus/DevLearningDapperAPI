@@ -47,7 +47,7 @@ public class CategoryService : ICategoryService
             string.IsNullOrEmpty(categoryRequest.Summary) ? category.Summary : categoryRequest.Summary,
 								 categoryRequest.Order is 0 ? category.Order : categoryRequest.Order,
 			string.IsNullOrEmpty(categoryRequest.Description) ? category.Description : categoryRequest.Description,
-								 categoryRequest.Featured ? category.Featured : categoryRequest.Featured
+								 categoryRequest.Featured
 									  );
 
 		await _repository.UpdateCategoryAsync(id, newCategory);

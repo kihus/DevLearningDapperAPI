@@ -58,7 +58,7 @@ namespace DevLearningAPI.Repositories
                         var courseWithRelation = new CourseWithRelationDto
                         {
                             Course = course,
-                            Progress = studentCourse.Progress,
+                            Progress = GetProgressStudentCourseAsync(student.StudentId, course.Id).Result,
                             Favorite = studentCourse.Favorite,
                             StartDate = studentCourse.StartDate,
                             LastUpdateDate = studentCourse.LastUpdateDate
@@ -107,7 +107,7 @@ namespace DevLearningAPI.Repositories
             }
         }
 
-        public async Task<byte?> GetProgressStudentCourseAsync(Guid studentId, Guid courseId)
+        public async Task<byte> GetProgressStudentCourseAsync(Guid studentId, Guid courseId)
         {
             var sql = @"SELECT Progress
                               FROM studentCourse
@@ -115,7 +115,7 @@ namespace DevLearningAPI.Repositories
 
             using (var con = _connection.GetConnection())
             {
-                return await con.QueryFirstOrDefaultAsync<byte?>(sql, new { StudentId = studentId, CourseId = courseId });
+                return await con.QueryFirstOrDefaultAsync<byte>(sql, new { StudentId = studentId, CourseId = courseId });
             }
         }
 
@@ -144,7 +144,7 @@ namespace DevLearningAPI.Repositories
 
             using (var con = _connection.GetConnection())
             {
-                await con.ExecuteAsync(sql, new { Progress = progress, StudentId = studentId, CourseId = courseId, });
+                await con.ExecuteAsync(sql, new { Progress = progress, StudentId = studentId, CourseId = courseId });
             }
             return progress;
         }
@@ -158,25 +158,29 @@ namespace DevLearningAPI.Repositories
                         FROM StudentCourse
                         WHERE StudentId = @StudentId AND CourseId = @CourseId";
 
-                var favorite = await con.ExecuteScalarAsync<bool?>(sqlSelect, new { StudentId = studentId, CourseId = courseId });
 
-                if (favorite == null)
-                {
-                    return false;
-                }
-
-                bool newValue = !favorite.Value;
+                //bool newValue = !favorite;
 
                 var sqlUpdate = @"UPDATE StudentCourse
-                              SET Favorite = @Favorite,
+                              SET Favorite = CASE Favorite WHEN 0 THEN 1
+                                             WHEN 1 THEN 0
+                                             END,
                               LastUpdateDate = GETDATE()
                               WHERE StudentId = @StudentId 
                               AND CourseId = @CourseId";
 
-                await con.ExecuteAsync(sqlUpdate,
-                    new { Favorite = newValue, StudentId = studentId, CourseId = courseId });
+                /*@"UPDATE Career
+                    SET Active = CASE Active WHEN 0 THEN 1
+                                             WHEN 1 THEN 0
+                                             END
+                    WHERE Id = @CareerId;";*/
 
-                return newValue;
+                await con.ExecuteAsync(sqlUpdate,
+                    new { StudentId = studentId, CourseId = courseId });
+
+                var favorite = await con.ExecuteScalarAsync<bool>(sqlSelect, new { StudentId = studentId, CourseId = courseId });
+
+                return favorite;
             }
         }
 
