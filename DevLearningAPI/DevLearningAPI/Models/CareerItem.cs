@@ -7,4 +7,5 @@ public class CareerItem(Guid careerId, Guid courseId, string title, string descr
     public string Title { get; set; }
     public string MyProperty { get; set; }
     public int Order { get; set; }
+    public string Description { get; set; }
 }
