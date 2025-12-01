@@ -14,12 +14,17 @@ public class AuthorService : IAuthorService
 		_repository = repository;
 	}
 
-	public async Task<List<AuthorResponseDto>> GetAllAuthorsAsync()
+	public async Task<List<AuthorResponseDto>> GetAllActiveAuthorsAsync()
 	{
-		return await _repository.GetAllAuthorsAsync();
+		return await _repository.GetAllActiveAuthorsAsync();
 	}
 
-	public async Task<AuthorResponseDto> GetAuthorByIdAsync(Guid id)
+    public async Task<List<AuthorResponseDto>> GetAllAuthorsAsync()
+    {
+        return await _repository.GetAllAuthorsAsync();
+    }
+
+    public async Task<AuthorResponseDto> GetAuthorByIdAsync(Guid id)
 	{
 		return await _repository.GetAuthorByIdAsync(id);
 	}
