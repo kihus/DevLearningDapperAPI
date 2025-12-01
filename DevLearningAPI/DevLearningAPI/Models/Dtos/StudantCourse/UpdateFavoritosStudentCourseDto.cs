@@ -2,7 +2,7 @@
 {
     public class UpdateFavoritosStudentCourseDto
     {
-        public Guid StudentId { get; set; }
-        public Guid CourseId { get; set; }
+        public Guid StudentId { get; init; }
+        public Guid CourseId { get; init; }
     }
 }
